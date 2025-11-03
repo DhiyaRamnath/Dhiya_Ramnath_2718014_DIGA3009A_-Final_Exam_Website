@@ -3,190 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incy Wincy Eats</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Incy Wincy Eats - Home</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/homepage.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">
-                <span class="spider-icon">🕷️</span>
-                Incy Wincy Eats
-            </div>
-            <ul class="nav-links">
-                <li><a href="#" data-page="home">Home</a></li>
-                <li><a href="#" data-page="browse">Browse</a></li>
-                <li><a href="#" data-page="surprise">Surprise Me!</a></li>
-                <li><a href="#" data-page="dashboard">My Recipes</a></li>
-                <li><a href="#" data-page="about">About</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container">
-        <!-- Home Page -->
-        <div id="home" class="page active">
-            <div class="hero">
-                <h1>🕷️ Welcome to Incy Wincy Eats! 🕷️</h1>
-                <p>Fun and Easy Recipes for Little Chefs!</p>
-            </div>
-            <div class="home-cards">
-                <div class="home-card" data-navigate="browse">
-                    <div class="home-card-icon">🔍</div>
-                    <h3>Browse Recipes</h3>
-                    <p>Find yummy recipes by searching ingredients or categories!</p>
-                </div>
-                <div class="home-card" data-navigate="surprise">
-                    <div class="home-card-icon">🎲</div>
-                    <h3>Surprise Me!</h3>
-                    <p>Flip a card and let the spider pick a random recipe for you!</p>
-                </div>
-                <div class="home-card" data-navigate="dashboard">
-                    <div class="home-card-icon">❤️</div>
-                    <h3>My Saved Recipes</h3>
-                    <p>Check out all your favorite recipes in one place!</p>
-                </div>
-                <div class="home-card" data-navigate="about">
-                    <div class="home-card-icon">ℹ️</div>
-                    <h3>About Us</h3>
-                    <p>Learn more about Incy Wincy Eats and cooking safety!</p>
-                </div>
+    <nav id="main-nav"></nav>
+    
+    <main class="homepage-container">
+        <!-- Hero Section with Teal Background -->
+        <div class="hero-section">
+            <img src="assets/home-left-veg.png" alt="Vegetables" class="hero-left-vegetables">
+            <img src="assets/home-right-veg.png" alt="Vegetables" class="hero-right-vegetables">
+            
+            <div class="logo-container">
+                <img src="assets/iwe-logo.png" alt="Incy Wincy Eats Logo">
+                <p class="tagline">a playground for pint-sized culinary cuties on the hunt for tasty inspiration!</p>
             </div>
         </div>
 
-        <!-- Browse Page -->
-        <div id="browse" class="page">
-            <h1 style="color: #8B4513; margin-bottom: 2rem;">🔍 Browse Recipes</h1>
-            <div class="search-filter">
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Search by recipe name or cuisine...">
-                    <button onclick="searchRecipes()">Search</button>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <h2 class="welcome-title">WELCOME!</h2>
+                <p class="welcome-text">
+                    Hey there, little chef-in-training! Ready to dive headfirst into a world of flavors? 
+                    Explore our gallery for fun and simple recipes, from mouthwatering desserts to zesty drinks! 
+                    Our step-by-step guides make it easy for chefs of all levels to create culinary masterpieces. 
+                    So lets get our aprons on and get cooking!
+                </p>
+                <button class="cta-button" id="browse-btn">Browse Recipes</button>
+            </div>
+            <div class="welcome-image">
+                <img src="assets/welcome-mix.png" alt="Cooking Board">
+            </div>
+        </section>
+
+        <!-- Tastiest Treats Section with Blue Background -->
+        <section class="tastiest-section">
+            <div class="tastiest-content">
+                <div class="tastiest-image">
+                    <img id="featured-recipe-image" src="https://via.placeholder.com/400x300?text=Loading..." alt="Featured Recipe">
                 </div>
-                <div class="search-bar" style="margin-top: 1rem;">
-                    <input type="text" id="ingredientSearch" placeholder="Search by specific ingredient (e.g., chicken, tomato)...">
-                    <button onclick="searchByIngredient()">Find Recipes</button>
-                </div>
-                <div class="filter-section">
-                    <h3 style="color: #8B4513; margin-bottom: 0.5rem;">Filter by Category:</h3>
-                    <div class="filter-buttons">
-                        <button class="filter-btn" onclick="filterByCategory('snack')">Snacks</button>
-                        <button class="filter-btn" onclick="filterByCategory('breakfast')">Breakfast</button>
-                        <button class="filter-btn" onclick="filterByCategory('dessert')">Desserts</button>
-                        <button class="filter-btn" onclick="filterByCategory('main course')">Main Course</button>
-                    </div>
-                </div>
-                <div class="filter-section">
-                    <h3 style="color: #8B4513; margin-bottom: 0.5rem;">Filter by Ingredients:</h3>
-                    <div class="filter-buttons">
-                        <button class="filter-btn" onclick="filterByIngredientCount(3)">Under 3 Ingredients</button>
-                        <button class="filter-btn" onclick="filterByIngredientCount(5)">Under 5 Ingredients</button>
-                    </div>
+                <div class="tastiest-text">
+                    <h2>TASTIEST BITES OF THE WEEK</h2>
+                    <h3 id="featured-recipe-title">Chocolate Milkshake</h3>
+                    <p id="featured-recipe-description">
+                        A delightful milkshake to brighten up a sunny day.
+                    </p>
+                    <button class="cta-button" id="check-it-out-btn">Check It Out</button>
                 </div>
             </div>
-            <div id="browseResults" class="recipe-grid"></div>
-            <div id="pagination" class="pagination"></div>
-        </div>
+        </section>
 
-        <!-- Surprise Me Page -->
-        <div id="surprise" class="page">
-            <h1 style="color: #8B4513; text-align: center; margin-bottom: 2rem;">🎲 Surprise Me!</h1>
-            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem;">Pick a card - any card! Click to reveal a surprise recipe! 🕷️</p>
-            <div class="cards-container">
-                <div class="flip-card" data-card="1">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div>
-                                <div style="font-size: 4rem;">🕷️</div>
-                                <div style="font-size: 1.5rem;">Card 1</div>
-                            </div>
-                        </div>
-                        <div class="flip-card-back">
-                            <div class="loading">Loading recipe...</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flip-card" data-card="2">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div>
-                                <div style="font-size: 4rem;">🕷️</div>
-                                <div style="font-size: 1.5rem;">Card 2</div>
-                            </div>
-                        </div>
-                        <div class="flip-card-back">
-                            <div class="loading">Loading recipe...</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flip-card" data-card="3">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div>
-                                <div style="font-size: 4rem;">🕷️</div>
-                                <div style="font-size: 1.5rem;">Card 3</div>
-                            </div>
-                        </div>
-                        <div class="flip-card-back">
-                            <div class="loading">Loading recipe...</div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Not Sure Section with Empty Pan -->
+        <section class="not-sure-section">
+            <div class="pan-container">
+                <img src="assets/empty-pan.png" alt="Empty Pan" class="pan-image empty">
+                <img src="assets/stirfry-pan.png" alt="Stir Fry Pan" class="pan-image stirfry">
             </div>
-            <div style="text-align: center; margin-top: 2rem;">
-                <button class="btn" onclick="resetAllCards()">Reset Cards</button>
+            <div class="not-sure-content">
+                <h2 class="section-title">NOT SURE WHAT TO MAKE?</h2>
+                <p class="section-text">
+                    Feeling indecisive about what to whip up? Check this quirky feature and let fate 
+                    pick a random recipe for your culinary adventure!
+                </p>
+                <button class="cta-button" id="surprise-btn">Surprise Me</button>
             </div>
-        </div>
+        </section>
 
-        <!-- Dashboard Page -->
-        <div id="dashboard" class="page">
-            <h1 style="color: #8B4513; margin-bottom: 2rem;">❤️ My Saved Recipes</h1>
-            <div id="savedRecipes" class="recipe-grid"></div>
-        </div>
+        <!-- Have Fun Section (appears on scroll with stirfry pan) -->
+        <section class="have-fun-section">
+            <div class="pan-container">
+                <img src="assets/stirfry-pan.png" alt="Stir Fry Pan" class="pan-image">
+            </div>
+            <div class="have-fun-content">
+                <h2>HAVE FUN, LITTLE CHEFS!</h2>
+            </div>
+        </section>
 
-        <!-- Recipe Details Page -->
-        <div id="recipeDetails" class="page">
-            <button class="btn" onclick="goBack()" style="margin-bottom: 1rem;">← Back</button>
-            <div id="recipeDetailsContent" class="recipe-details-container"></div>
-        </div>
-
-        <!-- About Page -->
-        <div id="about" class="page">
-            <div class="recipe-details-container">
-                <h1>ℹ️ About Incy Wincy Eats</h1>
-                <p style="font-size: 1.2rem; margin: 1.5rem 0;">Welcome to Incy Wincy Eats! We're here to help kids and parents discover fun, easy, and delicious recipes together.</p>
-                
-                <div class="fun-fact">
-                    <h3>🎯 Our Mission</h3>
-                    <p>To make cooking fun and accessible for young chefs while teaching important kitchen skills!</p>
+        <!-- Footer Section with Pink Background -->
+        <section class="footer-section">
+            <div class="footer-content">
+                <div class="footer-logo-section">
+                    <img src="assets/iwe-logo.png" alt="Incy Wincy Eats Logo">
+                    <p>© 2025 Incy Wincy Eats. All Rights Reserved. All recipes require adult supervision.</p>
                 </div>
-
-                <div style="margin: 2rem 0;">
-                    <h2 style="color: #A0522D; margin-bottom: 1rem;">🛡️ Kitchen Safety Tips for Kids</h2>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 0.8rem; margin: 0.5rem 0; background: #FFF5E6; border-radius: 10px;">👨‍👩‍👧 Always cook with an adult nearby</li>
-                        <li style="padding: 0.8rem; margin: 0.5rem 0; background: #FFF5E6; border-radius: 10px;">🧼 Wash your hands before you start cooking</li>
-                        <li style="padding: 0.8rem; margin: 0.5rem 0; background: #FFF5E6; border-radius: 10px;">🔪 Be careful with sharp knives - ask for help!</li>
-                        <li style="padding: 0.8rem; margin: 0.5rem 0; background: #FFF5E6; border-radius: 10px;">🔥 Keep pot handles turned inward on the stove</li>
-                        <li style="padding: 0.8rem; margin: 0.5rem 0; background: #FFF5E6; border-radius: 10px;">🧤 Use oven mitts for hot items</li>
-                        <li style="padding: 0.8rem; margin: 0.5rem 0; background: #FFF5E6; border-radius: 10px;">🧹 Clean up spills right away to prevent slips</li>
+                <div class="footer-notes">
+                    <h4>IMPORTANT NOTES:</h4>
+                    <ul>
+                        <li>Always check for food allergies before cooking</li>
+                        <li>Adult supervision required for all recipes</li>
+                        <li>Nutritional information is approximate</li>
                     </ul>
                 </div>
-
-                <div style="margin: 2rem 0;">
-                    <h2 style="color: #A0522D; margin-bottom: 1rem;">📚 Credits</h2>
-                    <p>Recipe data provided by <strong>Spoonacular API</strong></p>
-                    <p>Created with ❤️ for young cooking enthusiasts everywhere!</p>
-                    <p style="margin-top: 1rem;"><em>All recipes are alcohol-free and family-friendly! 🕷️</em></p>
+                <div class="footer-references">
+                    <h4>REFERENCES:</h4>
+                    <p>Recipe data and nutrition info and images from Spoonacular API</p>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <!-- Back to Top Button -->
-    <button id="backToTop" class="back-to-top" onclick="scrollToTop()">
-        ↑ Top
-    </button>
+    <button id="back-to-top" class="back-to-top">↑</button>
 
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/homepage.js"></script>
 </body>
 </html>
