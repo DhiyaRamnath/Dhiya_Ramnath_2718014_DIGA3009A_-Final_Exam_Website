@@ -96,16 +96,74 @@
 
 .form-group input.error {
     border-color: #e74c3c;
+    background-color: #ffe6e6;
 }
 
 .form-group input.success {
     border-color: #2ecc71;
 }
 
+.form-group select.error {
+    border-color: #e74c3c;
+    background-color: #ffe6e6;
+}
+
+/* Email Input with Suggestions */
+.email-input-wrapper {
+    position: relative;
+}
+
+.email-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid var(--teal);
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.email-suggestions.show {
+    display: block;
+}
+
+.email-suggestion-item {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: 'LazyDog', sans-serif;
+    font-size: 1rem;
+}
+
+.email-suggestion-item:hover {
+    background-color: var(--cream);
+}
+
+.email-suggestion-item:last-child {
+    border-radius: 0 0 13px 13px;
+}
+
+.suggestion-highlight {
+    color: var(--teal);
+    font-weight: bold;
+}
+
 .error-message {
     color: #e74c3c;
     font-size: 0.9rem;
     display: none;
+    margin-top: 0.25rem;
+    font-family: 'LazyDog', sans-serif;
+}
+
+.error-message.show {
+    display: block;
 }
 
 .submit-button {
@@ -128,9 +186,44 @@
     box-shadow: 0 5px 20px rgba(255, 128, 25, 0.4);
 }
 
+.submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Recommended Recipes Section */
+.recommended-section {
+    margin-top: 3rem;
+}
+
+.recommended-section .section-title {
+    text-align: center;
+    color: var(--pink);
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+}
+
+.recommended-subtitle {
+    text-align: center;
+    color: var(--teal);
+    margin-bottom: 3rem;
+    font-size: 1.2rem;
+    font-family: 'Sniglet', cursive;
+}
+
+.recommended-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
 /* Favorites Section - Matching Wireframe */
 .favorites-section {
     margin-top: 3rem;
+    margin-bottom: 4rem;
 }
 
 .favorites-section .section-title {
@@ -148,7 +241,7 @@
     margin-bottom: 3rem;
 }
 
-/* Recipe Cards - Matching Wireframe with Yellow Border and Heart */
+/* Recipe Cards - Fixed height with aligned buttons */
 .recipe-card {
     background-color: white;
     border-radius: 25px;
@@ -157,6 +250,9 @@
     transition: all 0.3s ease;
     border: 5px solid var(--yellow);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .recipe-card::before {
@@ -178,10 +274,14 @@
     width: 100%;
     height: 200px;
     object-fit: cover;
+    flex-shrink: 0;
 }
 
 .recipe-info {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .recipe-name {
@@ -191,17 +291,24 @@
     margin-bottom: 0.5rem;
     text-align: center;
     text-transform: lowercase;
+    min-height: 3.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.3;
 }
 
 .recipe-time {
     color: #666;
     margin-bottom: 1rem;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .card-actions {
     display: flex;
     gap: 1rem;
+    margin-top: auto;
 }
 
 .view-btn, .remove-btn {
@@ -213,6 +320,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: capitalize;
+    font-size: 1rem;
 }
 
 .view-btn {
@@ -244,11 +352,81 @@
     font-size: 1.3rem;
     color: #999;
     padding: 4rem 2rem;
+    grid-column: 1 / -1;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--teal);
+    padding: 2rem;
+    grid-column: 1 / -1;
+}
+
+/* Footer Section - Pink Background (Same as Homepage) */
+.footer-section {
+    background-color: var(--pink);
+    padding: 4rem 2rem;
+    position: relative;
+    color: white;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+}
+
+.footer-logo img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.footer-logo img:hover {
+    transform: scale(1.05);
+}
+
+.footer-logo p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footer-notes h4,
+.footer-references h4 {
+    font-family: 'Sniglet', cursive;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.footer-notes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-notes li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.footer-references p {
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 /* Responsive */
 @media (max-width: 1200px) {
     .favorites-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .recommended-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
@@ -273,13 +451,24 @@
         padding: 2rem 1rem;
     }
 
-    .favorites-grid {
+    .favorites-grid,
+    .recommended-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-logo img {
+        width: 250px;
     }
 }
 
 @media (max-width: 480px) {
-    .favorites-grid {
+    .favorites-grid,
+    .recommended-grid {
         grid-template-columns: 1fr;
     }
 }

@@ -1,4 +1,5 @@
 const navItems = [
+    { name: 'HOME', url: 'index.html' },
     { name: 'BROWSE RECIPES', url: 'browse-recipes.html' },
     { name: 'SURPRISE ME', url: 'surprise-me.html' },
     { name: 'ABOUT', url: 'about.html' }
@@ -12,6 +13,11 @@ function createNavigation() {
 
     let navHTML = `
         <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="nav-logo">
+                    <img src="assets/iwe-logo.png" alt="Incy Wincy Eats" onerror="this.style.display='none'">
+                </a>
+            </div>
             <button class="mobile-toggle" id="mobile-toggle">
                 <span></span>
                 <span></span>

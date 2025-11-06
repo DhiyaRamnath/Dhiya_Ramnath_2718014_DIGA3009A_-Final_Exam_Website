@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Favorites - Incy Wincy Eats</title>
+    <title>My Dashboard - Incy Wincy Eats</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
@@ -11,71 +11,112 @@
     <nav id="main-nav"></nav>
     
     <main class="dashboard-container">
-        <div class="profile-section" id="profile-section">
-            <div class="profile-icon">
-                <img src="" alt="Profile" id="profile-img">
-            </div>
-            <h2 class="greeting" id="user-greeting">HELLO, JANE DOE!</h2>
-        </div>
-
+        <!-- Login Section (shown when not logged in) -->
         <section class="login-section" id="login-section">
-            <h2>Login to Save Your Favorites</h2>
-            <form id="login-form" class="login-form">
+            <h2>Create Your Profile</h2>
+            <form class="login-form" id="login-form">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
-                    <span class="error-message" id="username-error"></span>
+                    <label for="user-name">Your Name</label>
+                    <input type="text" id="user-name" placeholder="Enter your name" required>
+                    <span class="error-message" id="name-error">Name must be at least 3 characters long</span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                    <span class="error-message" id="email-error"></span>
+                    <label for="user-age">Your Age</label>
+                    <input type="number" id="user-age" placeholder="Enter your age" min="1" max="120" required>
+                    <span class="error-message" id="age-error">Please enter a valid age</span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                    <span class="error-message" id="password-error"></span>
+                    <label for="user-email">Email Address</label>
+                    <div class="email-input-wrapper">
+                        <input type="text" id="user-email" placeholder="Enter your email" autocomplete="off" required>
+                        <div class="email-suggestions" id="email-suggestions"></div>
+                    </div>
+                    <span class="error-message" id="email-error">Please enter a valid email address</span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required>
-                    <span class="error-message" id="confirm-error"></span>
+                    <label for="user-password">Password</label>
+                    <input type="password" id="user-password" placeholder="Create a password" required>
+                    <span class="error-message" id="password-error">Password is required</span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="favorite-category">Favorite Recipe Category</label>
-                    <select id="favorite-category" name="favorite-category" required>
+                    <label for="user-password-confirm">Confirm Password</label>
+                    <input type="password" id="user-password-confirm" placeholder="Confirm your password" required>
+                    <span class="error-message" id="password-confirm-error">Passwords do not match</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="user-category">Favorite Recipe Category</label>
+                    <select id="user-category" required>
                         <option value="">Select a category</option>
-                        <option value="snacks">Snacks</option>
+                        <option value="dessert">Desserts</option>
+                        <option value="appetizer">Small Snacks</option>
                         <option value="breakfast">Breakfast</option>
-                        <option value="desserts">Fun Desserts</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
                     </select>
-                    <span class="error-message" id="category-error"></span>
+                    <span class="error-message" id="category-error">Please select a category</span>
                 </div>
                 
-                <button type="submit" class="submit-button">Login</button>
+                <button type="submit" class="submit-button">Create Profile</button>
             </form>
+        </section>
+
+        <!-- Profile Section (shown when logged in) -->
+        <section class="profile-section" id="profile-section" style="display: none;">
+            <div class="profile-icon">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2Y5NDY4MCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTIwLDcwIFEzNSw1NSA1MCw1NSBUODAsNzAiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="Profile">
+            </div>
+            <h1 class="greeting" id="user-greeting">HELLO, CHEF!</h1>
         </section>
 
         <section class="favorites-section" id="favorites-section" style="display: none;">
             <h2 class="section-title">HERE ARE YOUR FAVOURITE RECIPES:</h2>
             <div class="favorites-grid" id="favorites-grid">
+                <p class="empty-message">No favorite recipes yet. Start exploring!</p>
             </div>
-            <p class="empty-message" id="empty-message" style="display: none;">
-                You haven't saved any recipes yet! Browse recipes and add your favorites.
-            </p>
+        </section>
+        
+        <section class="recommended-section" id="recommended-section" style="display: none;">
+            <h2 class="section-title">RECOMMENDED FOR YOU</h2>
+            <p class="recommended-subtitle" id="recommended-subtitle">Based on your love for desserts!</p>
+            <div class="recommended-grid" id="recommended-grid">
+                <p class="loading-message">Loading your personalized recommendations...</p>
+            </div>
         </section>
     </main>
+
+    <!-- Footer Section - Same as Homepage -->
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/iwe-logo.png" alt="Incy Wincy Eats">
+                <p>© 2025 Incy Wincy Eats. All Rights Reserved.<br>All recipes require adult supervision.</p>
+            </div>
+            <div class="footer-notes">
+                <h4>IMPORTANT NOTES:</h4>
+                <ul>
+                    <li>Always check for food allergies before cooking</li>
+                    <li>Adult supervision required for all recipes</li>
+                    <li>Nutritional information is approximate</li>
+                </ul>
+            </div>
+            <div class="footer-references">
+                <h4>REFERENCES</h4>
+                <p>Recipe data and nutrition info and images from Spoonacular API</p>
+            </div>
+        </div>
+    </footer>
 
     <button id="back-to-top" class="back-to-top">↑</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/api.js"></script>
-    <script src="js/validation.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>
