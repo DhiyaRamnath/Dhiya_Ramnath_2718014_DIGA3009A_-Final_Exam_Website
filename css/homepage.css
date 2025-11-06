@@ -4,7 +4,6 @@
     background-color: var(--cream);
 }
 
-/* Hero Section - Teal Background */
 .hero-section {
     background-color: var(--teal);
     padding: 3rem 2rem 4rem;
@@ -19,7 +18,7 @@
 }
 
 .logo-container img {
-    width: 400px;
+    width: 550px;
     height: auto;
     margin-bottom: 1rem;
     transition: transform 0.3s ease;
@@ -31,31 +30,28 @@
 }
 
 .tagline {
-    font-family: 'Sniglet', cursive;
-    font-size: 1.3rem;
+    font-family: "Walter Turncoat", cursive;
+    font-size: 1.7rem;
     color: white;
     line-height: 1.6;
 }
 
 .hero-left-veg {
     position: absolute;
-    left: -50px;
-    top: 10%;
+    left: -10px;
     height: auto;
-    width: 250px;
+    width: 650px;
     z-index: 2;
 }
 
 .hero-right-veg {
     position: absolute;
-    right: -50px;
-    top: 10%;
+    right: -10px;
     height: auto;
-    width: 250px;
+    width: 650px;
     z-index: 2;
 }
 
-/* Welcome Section */
 .welcome-section {
     max-width: 100%;
     margin: 4rem 0;
@@ -69,11 +65,12 @@
 
 .welcome-text {
     text-align: left;
-    max-width: 600px;
+    max-width: 900px;
 }
 
 .welcome-text h2 {
-    font-size: 5rem;
+    font-family: "Walter Turncoat", cursive;
+    font-size: 8rem;
     color: #333;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
@@ -81,7 +78,6 @@
     line-height: 1;
 }
 
-/* Letter wiggle effect on WELCOME */
 .welcome-letter {
     display: inline-block;
     transition: all 0.3s ease;
@@ -94,7 +90,8 @@
 }
 
 .welcome-text p {
-    font-size: 1.1rem;
+    font-family: "Sniglet", system-ui;
+    font-size: 1.3rem;
     line-height: 1.8;
     color: #555;
     margin-bottom: 2rem;
@@ -104,7 +101,7 @@
     background-color: var(--pink);
     color: white;
     padding: 1rem 2.5rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     border-radius: 50px;
     border: none;
     cursor: pointer;
@@ -125,12 +122,11 @@
 }
 
 .welcome-image img {
-    width: 700px;
+    width: 800px;
     height: auto;
     display: block;
 }
 
-/* Tastiest Section - Blue Background */
 .tastiest-section {
     background-color: var(--blue);
     padding: 4rem 2rem;
@@ -160,15 +156,17 @@
 }
 
 .tastiest-text h3 {
-    font-size: 2rem;
+    font-family: "Walter Turncoat", cursive;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
     color: white;
     text-transform: capitalize;
 }
 
 .tastiest-text p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-family: "Sniglet", system-ui;
+    font-size: 1.2rem;
+    line-height: 1.4;
     color: white;
     margin-bottom: 2rem;
 }
@@ -177,7 +175,7 @@
     background-color: var(--yellow);
     color: white;
     padding: 1rem 2.5rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     border-radius: 50px;
     border: none;
     cursor: pointer;
@@ -191,15 +189,15 @@
 }
 
 .tastiest-title {
-    font-size: 3.5rem;
+    font-family: "Walter Turncoat", cursive;
+    font-size: 4.4rem;
     color: white;
     text-transform: uppercase;
     text-align: right;
-    line-height: 1.1;
-    max-width: 250px;
+    line-height: 1;
+    max-width: 470px;
 }
 
-/* Not Sure Section */
 .not-sure-section {
     max-width: 100%;
     margin: 4rem 0;
@@ -245,14 +243,16 @@
 }
 
 .not-sure-text h2 {
-    font-size: 3.5rem;
+    font-family: "Walter Turncoat", cursive;
+    font-size: 5rem;
     color: #333;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
 }
 
 .not-sure-text p {
-    font-size: 1.1rem;
+    font-family: "Sniglet", system-ui;
+    font-size: 1.4rem;
     line-height: 1.8;
     color: #555;
     margin-bottom: 2rem;
@@ -262,7 +262,7 @@
     background-color: var(--orange);
     color: white;
     padding: 1rem 2.5rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     border-radius: 50px;
     border: none;
     cursor: pointer;
@@ -275,7 +275,6 @@
     background-color: var(--pink);
 }
 
-/* Have Fun Section with Cake */
 .have-fun-section {
     max-width: 1200px;
     margin: 4rem auto;
@@ -293,7 +292,8 @@
 }
 
 .have-fun-content h2 {
-    font-size: 4rem;
+    font-family: "Walter Turncoat", cursive;
+    font-size: 5rem;
     color: var(--pink);
     text-transform: uppercase;
     margin-bottom: 2rem;
@@ -306,14 +306,13 @@
 }
 
 .cake-image {
-    width: 100%;
-    height: 100%;
+    width: 120%;
+    height: 120%;
     object-fit: contain;
     opacity: 0;
     transform: scale(0.5);
 }
 
-/* Confetti SVG Container */
 .confetti-container {
     position: absolute;
     top: 0;
@@ -330,13 +329,13 @@
     height: 20px;
 }
 
-/* Footer Section - Pink Background */
 .footer-section {
     background-color: var(--pink);
     padding: 4rem 2rem;
-    position: relative;
+    position: center;
     color: white;
     opacity: 0;
+    
 }
 
 .footer-content {
@@ -345,10 +344,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 3rem;
+    text-align: center;
 }
 
 .footer-logo img {
-    width: 300px;
+    width: 280px;
     height: auto;
     margin-bottom: 1rem;
     transition: transform 0.3s ease;
@@ -360,12 +360,14 @@
 }
 
 .footer-logo p {
+    text-align: center;
     font-size: 0.9rem;
     line-height: 1.6;
 }
 
 .footer-notes h4,
 .footer-references h4 {
+    text-align: left;
     font-family: 'Sniglet', cursive;
     font-size: 1.2rem;
     margin-bottom: 1rem;
@@ -373,21 +375,23 @@
 }
 
 .footer-notes ul {
+    text-align: left;
     list-style: none;
     padding: 0;
 }
 
 .footer-notes li {
+    text-align: left;
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
 }
 
 .footer-references p {
+    text-align: left;
     font-size: 0.95rem;
     line-height: 1.6;
 }
 
-/* Responsive */
 @media (max-width: 1200px) {
     .welcome-image img {
         width: 600px;
