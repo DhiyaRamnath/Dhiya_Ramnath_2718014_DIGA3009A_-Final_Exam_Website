@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Recipes - Incy Wincy Eats</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/browse.css">
+</head>
+<body>
+    <nav id="main-nav"></nav>
+    
+    <main class="browse-container">
+        <h1 class="page-title">BROWSE RECIPES</h1>
+        
+        <section class="search-filter-section">
+            <div class="search-container">
+                <h3>ENTER THE NAME OF THE DISH, INGREDIENT, OR TYPE OF MEAL:</h3>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="No-bake dessert">
+                    <button id="search-btn" class="search-button">Search</button>
+                </div>
+            </div>
+
+            <div class="filter-container">
+                <h3>FILTERED CATEGORIES</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="all">All Recipes</button>
+                    <button class="filter-btn" data-category="snacks">Snacks</button>
+                    <button class="filter-btn" data-category="breakfast">Breakfast</button>
+                    <button class="filter-btn" data-category="dessert">Fun Desserts</button>
+                </div>
+
+                <div class="ingredient-filters">
+                    <label>
+                        <input type="checkbox" id="under-5-ingredients">
+                        Under 5 Ingredients
+                    </label>
+                    <label>
+                        <input type="checkbox" id="under-3-ingredients">
+                        Under 3 Ingredients
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-section">
+            <div class="results-header">
+                <h2 id="results-title">RESULTS:</h2>
+                <p id="results-count"></p>
+            </div>
+            
+            <div class="recipes-grid" id="recipes-grid">
+            </div>
+
+            <div class="loading-message" id="loading-message" style="display: none;">
+                Loading delicious recipes...
+            </div>
+
+            <div class="pagination">
+                <button id="prev-page" class="page-btn" disabled>Previous</button>
+                <span id="page-info">Page 1</span>
+                <button id="next-page" class="page-btn">Next</button>
+            </div>
+        </section>
+
+        <section class="popular-section">
+            <h2 class="section-title">MOST POPULAR RECIPES</h2>
+            <div class="popular-grid" id="popular-grid">
+            </div>
+        </section>
+    </main>
+
+    <button id="back-to-top" class="back-to-top">↑</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/browse.js"></script>
+</body>
+</html>

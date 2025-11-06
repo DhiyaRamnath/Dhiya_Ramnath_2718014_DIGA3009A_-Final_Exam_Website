@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Details - Incy Wincy Eats</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/recipe-details.css">
+</head>
+<body>
+    <nav id="main-nav"></nav>
+    
+    <main class="recipe-container">
+        <div class="recipe-header">
+            <h1 class="recipe-title" id="recipe-title">CHOCOLATE CHIP PANCAKES</h1>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <span class="meta-label">PREP TIME</span>
+                    <span class="meta-value" id="prep-time">5 min</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">COOK TIME</span>
+                    <span class="meta-value" id="cook-time">5 min</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">SERVINGS</span>
+                    <span class="meta-value" id="servings">8 Pancakes</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">CALORIES</span>
+                    <span class="meta-value" id="calories">283kcal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-content">
+            <div class="recipe-image-section">
+                <img id="recipe-image" src="" alt="Recipe">
+            </div>
+
+            <div class="ingredients-section">
+                <h2>INGREDIENTS</h2>
+                <ul class="ingredients-list" id="ingredients-list">
+                </ul>
+            </div>
+        </div>
+
+        <section class="directions-section">
+            <h2>DIRECTIONS</h2>
+            <ol class="directions-list" id="directions-list">
+            </ol>
+        </section>
+
+        <section class="extra-tips-section">
+            <h2>EXTRA TIPS:</h2>
+            <p id="extra-tips"></p>
+        </section>
+
+        <section class="nutrition-section">
+            <h2>NUTRITION:</h2>
+            <div class="nutrition-grid" id="nutrition-grid">
+            </div>
+        </section>
+
+        <div class="action-buttons">
+            <button class="favorite-button" id="add-to-favorites">
+                Add to Favourites
+            </button>
+        </div>
+    </main>
+
+    <button id="back-to-top" class="back-to-top">↑</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/recipe-details.js"></script>
+</body>
+</html>

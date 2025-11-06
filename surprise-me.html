@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise Me - Incy Wincy Eats</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/surprise-me.css">
+</head>
+<body>
+    <nav id="main-nav"></nav>
+    
+    <main class="surprise-container">
+        <h1 class="page-title">SURPRISE ME!</h1>
+        <h2 class="subtitle">CHOOSE A CARD TO UNCOVER A SURPRISE RECIPE!</h2>
+
+        <div class="cards-container">
+            <div class="card" data-card="1">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-logo">INCY WINCY EATS</div>
+                    </div>
+                    <div class="card-back">
+                        <img class="card-image" src="" alt="Recipe">
+                        <h3 class="card-title"></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-card="2">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-logo">INCY WINCY EATS</div>
+                    </div>
+                    <div class="card-back">
+                        <img class="card-image" src="" alt="Recipe">
+                        <h3 class="card-title"></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-card="3">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-logo">INCY WINCY EATS</div>
+                    </div>
+                    <div class="card-back">
+                        <img class="card-image" src="" alt="Recipe">
+                        <h3 class="card-title"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-info" id="card-info" style="display: none;">
+            <p class="info-text"></p>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn" id="view-recipe-btn" style="display: none;">
+                View Recipe
+            </button>
+            <button class="action-btn" id="add-favorite-btn" style="display: none;">
+                Add to Favourites
+            </button>
+            <button class="action-btn secondary" id="retry-btn">
+                Retry
+            </button>
+        </div>
+    </main>
+
+    <button id="back-to-top" class="back-to-top">↑</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/surprise-me.js"></script>
+</body>
+</html>

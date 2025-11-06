@@ -30,7 +30,7 @@
 }
 
 .tagline {
-    font-family: "Walter Turncoat", cursive;
+    font-family: "Pangolin", cursive;
     font-size: 1.7rem;
     color: white;
     line-height: 1.6;
@@ -69,7 +69,6 @@
 }
 
 .welcome-text h2 {
-    font-family: "Walter Turncoat", cursive;
     font-size: 8rem;
     color: #333;
     margin-bottom: 1.5rem;
@@ -105,7 +104,6 @@
     border-radius: 50px;
     border: none;
     cursor: pointer;
-    font-family: 'IreneFlorentina', cursive;
     transition: all 0.3s ease;
     text-transform: capitalize;
 }
@@ -156,7 +154,7 @@
 }
 
 .tastiest-text h3 {
-    font-family: "Walter Turncoat", cursive;
+    font-family: "Pangolin", cursive;
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: white;
@@ -179,7 +177,6 @@
     border-radius: 50px;
     border: none;
     cursor: pointer;
-    font-family: 'IreneFlorentina', cursive;
     transition: all 0.3s ease;
     text-transform: capitalize;
 }
@@ -189,7 +186,7 @@
 }
 
 .tastiest-title {
-    font-family: "Walter Turncoat", cursive;
+    font-family: "Pangolin", cursive;
     font-size: 4.4rem;
     color: white;
     text-transform: uppercase;
@@ -243,7 +240,7 @@
 }
 
 .not-sure-text h2 {
-    font-family: "Walter Turncoat", cursive;
+    font-family: "Pangolin", cursive;
     font-size: 5rem;
     color: #333;
     margin-bottom: 1.5rem;
@@ -266,7 +263,6 @@
     border-radius: 50px;
     border: none;
     cursor: pointer;
-    font-family: 'IreneFlorentina', cursive;
     transition: all 0.3s ease;
     text-transform: capitalize;
 }
@@ -292,7 +288,7 @@
 }
 
 .have-fun-content h2 {
-    font-family: "Walter Turncoat", cursive;
+    font-family: "Pangolin", cursive;
     font-size: 5rem;
     color: var(--pink);
     text-transform: uppercase;
@@ -306,27 +302,12 @@
 }
 
 .cake-image {
+    align-content: center;
     width: 120%;
     height: 120%;
     object-fit: contain;
     opacity: 0;
     transform: scale(0.5);
-}
-
-.confetti-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: visible;
-}
-
-.confetti {
-    position: absolute;
-    width: 20px;
-    height: 20px;
 }
 
 .footer-section {
@@ -368,7 +349,7 @@
 .footer-notes h4,
 .footer-references h4 {
     text-align: left;
-    font-family: 'Sniglet', cursive;
+    font-family: "Sniglet", cursive;
     font-size: 1.2rem;
     margin-bottom: 1rem;
     text-transform: uppercase;
