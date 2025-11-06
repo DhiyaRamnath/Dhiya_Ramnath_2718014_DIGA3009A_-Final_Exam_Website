@@ -3,35 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incy Wincy Eats - Home</title>
+    <title>Incy Wincy Eats Home</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/homepage.css">
 </head>
 <body>
     <nav id="main-nav"></nav>
-    
     <main class="homepage-container">
-        <!-- Hero Section with Teal Background -->
-        <div class="hero-section">
-            <img src="assets/home-left-veg.png" alt="Vegetables" class="hero-left-vegetables">
-            <img src="assets/home-right-veg.png" alt="Vegetables" class="hero-right-vegetables">
+        <section class="hero-section">
+            <img src="assets/home-left-veg.png" alt="" class="hero-left-veg">
+            <img src="assets/home-right-veg.png" alt="" class="hero-right-veg">
             
-            <div class="logo-container">
-                <img src="assets/iwe-logo.png" alt="Incy Wincy Eats Logo">
+            <div class="hero-content">
+                <div class="logo-container">
+                    <img src="assets/iwe-logo.png" alt="Incy Wincy Eats">
+                </div>
                 <p class="tagline">a playground for pint-sized culinary cuties on the hunt for tasty inspiration!</p>
             </div>
-        </div>
+        </section>
 
-        <!-- Welcome Section -->
         <section class="welcome-section">
-            <div class="welcome-content">
-                <h2 class="welcome-title">WELCOME!</h2>
-                <p class="welcome-text">
-                    Hey there, little chef-in-training! Ready to dive headfirst into a world of flavors? 
-                    Explore our gallery for fun and simple recipes, from mouthwatering desserts to zesty drinks! 
-                    Our step-by-step guides make it easy for chefs of all levels to create culinary masterpieces. 
-                    So lets get our aprons on and get cooking!
-                </p>
+            <div class="welcome-text">
+                <h2 id="welcome-heading">WELCOME!</h2>
+                <p>Hey there, little chef-in-training! Ready to dive headfirst into a world of flavors? Explore our gallery for fun and simple recipes, from mouthwatering desserts to zesty drinks! Our step-by-step guides make it easy for chefs of all levels to create culinary masterpieces. So lets get our aprons on and get cooking!</p>
                 <button class="cta-button" id="browse-btn">Browse Recipes</button>
             </div>
             <div class="welcome-image">
@@ -39,54 +33,44 @@
             </div>
         </section>
 
-        <!-- Tastiest Treats Section with Blue Background -->
         <section class="tastiest-section">
             <div class="tastiest-content">
                 <div class="tastiest-image">
-                    <img id="featured-recipe-image" src="https://via.placeholder.com/400x300?text=Loading..." alt="Featured Recipe">
+                    <img id="featured-image" src="https://via.placeholder.com/400x400?text=Loading..." alt="Featured Recipe">
                 </div>
                 <div class="tastiest-text">
-                    <h2>TASTIEST BITES OF THE WEEK</h2>
-                    <h3 id="featured-recipe-title">Chocolate Milkshake</h3>
-                    <p id="featured-recipe-description">
-                        A delightful milkshake to brighten up a sunny day.
-                    </p>
+                    <h3 id="featured-title">Loading...</h3>
+                    <p id="featured-description">Loading recipe...</p>
                     <button class="cta-button" id="check-it-out-btn">Check It Out</button>
                 </div>
+                <h2 class="tastiest-title">TASTIEST BITES OF THE WEEK</h2>
             </div>
         </section>
 
-        <!-- Not Sure Section with Empty Pan -->
         <section class="not-sure-section">
-            <div class="pan-container">
+            <div class="pan-container" id="draggable-pan">
                 <img src="assets/empty-pan.png" alt="Empty Pan" class="pan-image empty">
-                <img src="assets/stirfry-pan.png" alt="Stir Fry Pan" class="pan-image stirfry">
             </div>
-            <div class="not-sure-content">
-                <h2 class="section-title">NOT SURE WHAT TO MAKE?</h2>
-                <p class="section-text">
-                    Feeling indecisive about what to whip up? Check this quirky feature and let fate 
-                    pick a random recipe for your culinary adventure!
-                </p>
+            <div class="not-sure-text">
+                <h2>NOT SURE WHAT TO MAKE?</h2>
+                <p>Feeling indecisive about what to whip up? Check this quirky feature and let fate pick a random recipe for your culinary adventure!</p>
                 <button class="cta-button" id="surprise-btn">Surprise Me</button>
             </div>
         </section>
 
-        <!-- Have Fun Section (appears on scroll with stirfry pan) -->
         <section class="have-fun-section">
-            <div class="pan-container">
-                <img src="assets/stirfry-pan.png" alt="Stir Fry Pan" class="pan-image">
-            </div>
             <div class="have-fun-content">
                 <h2>HAVE FUN, LITTLE CHEFS!</h2>
+                <div class="cake-container">
+                    <img src="assets/cake.png" alt="Celebration Cake" class="cake-image" id="cake-image">
+                </div>
             </div>
         </section>
 
-        <!-- Footer Section with Pink Background -->
         <section class="footer-section">
             <div class="footer-content">
-                <div class="footer-logo-section">
-                    <img src="assets/iwe-logo.png" alt="Incy Wincy Eats Logo">
+                <div class="footer-logo">
+                    <img src="assets/iwe-logo.png" alt="Incy Wincy Eats">
                     <p>© 2025 Incy Wincy Eats. All Rights Reserved. All recipes require adult supervision.</p>
                 </div>
                 <div class="footer-notes">
@@ -98,7 +82,7 @@
                     </ul>
                 </div>
                 <div class="footer-references">
-                    <h4>REFERENCES:</h4>
+                    <h4>REFERENCES</h4>
                     <p>Recipe data and nutrition info and images from Spoonacular API</p>
                 </div>
             </div>
@@ -109,6 +93,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/api.js"></script>
     <script src="js/homepage.js"></script>
