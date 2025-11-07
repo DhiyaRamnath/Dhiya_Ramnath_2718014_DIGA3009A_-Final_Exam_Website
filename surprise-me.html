@@ -6,72 +6,82 @@
     <title>Surprise Me - Incy Wincy Eats</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/surprise-me.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pangolin&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav id="main-nav"></nav>
     
     <main class="surprise-container">
-        <h1 class="page-title">SURPRISE ME!</h1>
-        <h2 class="subtitle">CHOOSE A CARD TO UNCOVER A SURPRISE RECIPE!</h2>
+        <section class="hero-section">
+            <h1 class="page-title">SURPRISE ME!</h1>
+            <p class="page-subtitle">Click to Reveal Your Recipe!</p>
+        </section>
 
-        <div class="cards-container">
-            <div class="card" data-card="1">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div class="card-logo">INCY WINCY EATS</div>
-                    </div>
-                    <div class="card-back">
-                        <img class="card-image" src="" alt="Recipe">
-                        <h3 class="card-title"></h3>
+        <section class="surprise-section">
+            <div class="surprise-content">
+                <button class="surprise-button" id="surprise-button">
+                    Get Random Recipe
+                </button>
+                
+                <div class="recipe-display" id="recipe-display" style="display: none;">
+                    <div class="flip-card" id="flip-card">
+                        <div class="flip-card-inner" id="flip-card-inner">
+                         
+                            <div class="flip-card-front">
+                                <img src="assets/iwe-logo.png" alt="Incy Wincy Eats" class="card-logo">
+                                <h2 class="card-message">Choose a card to uncover a surprise recipe!</h2>
+                            </div>
+
+                            <div class="flip-card-back">
+                                <img id="recipe-image" src="" alt="Recipe" class="recipe-image-large">
+                                <div class="recipe-details">
+                                    <h2 id="recipe-title" class="recipe-title-large"></h2>
+                                    <div class="recipe-meta">
+                                        <span class="meta-item">
+                                            <strong>Time:</strong> <span id="recipe-time"></span>
+                                        </span>
+                                        <span class="meta-item">
+                                            <strong>Servings:</strong> <span id="recipe-servings"></span>
+                                        </span>
+                                    </div>
+                                    <div class="recipe-summary" id="recipe-summary"></div>
+                                    <div class="recipe-actions">
+                                        <button class="view-full-btn" id="view-full-recipe">View Full Recipe</button>
+                                        <button class="try-again-btn" id="try-again">Try Again</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="card" data-card="2">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div class="card-logo">INCY WINCY EATS</div>
-                    </div>
-                    <div class="card-back">
-                        <img class="card-image" src="" alt="Recipe">
-                        <h3 class="card-title"></h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-card="3">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div class="card-logo">INCY WINCY EATS</div>
-                    </div>
-                    <div class="card-back">
-                        <img class="card-image" src="" alt="Recipe">
-                        <h3 class="card-title"></h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-info" id="card-info" style="display: none;">
-            <p class="info-text"></p>
-        </div>
-
-        <div class="action-buttons">
-            <button class="action-btn" id="view-recipe-btn" style="display: none;">
-                View Recipe
-            </button>
-            <button class="action-btn" id="add-favorite-btn" style="display: none;">
-                Add to Favourites
-            </button>
-            <button class="action-btn secondary" id="retry-btn">
-                Retry
-            </button>
-        </div>
+        </section>
     </main>
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/iwe-logo.png" alt="Incy Wincy Eats">
+                <p>© 2025 Incy Wincy Eats. All Rights Reserved.<br>All recipes require adult supervision.</p>
+            </div>
+            <div class="footer-notes">
+                <h4>IMPORTANT NOTES:</h4>
+                <ul>
+                    <li>Always check for food allergies before cooking</li>
+                    <li>Adult supervision required for all recipes</li>
+                    <li>Nutritional information is approximate</li>
+                </ul>
+            </div>
+            <div class="footer-references">
+                <h4>REFERENCES</h4>
+                <p>Recipe data and nutrition info and images from Spoonacular API</p>
+            </div>
+        </div>
+    </footer>
 
     <button id="back-to-top" class="back-to-top">↑</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/api.js"></script>
     <script src="js/surprise-me.js"></script>

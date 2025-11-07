@@ -6,12 +6,12 @@
     <title>My Dashboard - Incy Wincy Eats</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pangolin&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav id="main-nav"></nav>
     
     <main class="dashboard-container">
-        <!-- Login Section (shown when not logged in) -->
         <section class="login-section" id="login-section">
             <h2>Create Your Profile</h2>
             <form class="login-form" id="login-form">
@@ -65,23 +65,27 @@
             </form>
         </section>
 
-        <!-- Profile Section (shown when logged in) -->
         <section class="profile-section" id="profile-section" style="display: none;">
-            <div class="profile-icon">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2Y5NDY4MCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTIwLDcwIFEzNSw1NSA1MCw1NSBUODAsNzAiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="Profile">
+            <div class="profile-info">
+                <div class="profile-icon">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2Y5NDY4MCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTIwLDcwIFEzNSw1NSA1MCw1NSBUODAsNzAiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="Profile">
+                </div>
+                <h1 class="greeting" id="user-greeting">HELLO, CHEF!</h1>
             </div>
-            <h1 class="greeting" id="user-greeting">HELLO, CHEF!</h1>
+            <button class="logout-button" id="logout-btn">
+                Log Out
+            </button>
         </section>
 
         <section class="favorites-section" id="favorites-section" style="display: none;">
-            <h2 class="section-title">HERE ARE YOUR FAVOURITE RECIPES:</h2>
+            <h2 class="section-title">Here Are Your Favorite Recipes:</h2>
             <div class="favorites-grid" id="favorites-grid">
                 <p class="empty-message">No favorite recipes yet. Start exploring!</p>
             </div>
         </section>
-        
+
         <section class="recommended-section" id="recommended-section" style="display: none;">
-            <h2 class="section-title">RECOMMENDED FOR YOU</h2>
+            <h2 class="section-title">Recommended For You</h2>
             <p class="recommended-subtitle" id="recommended-subtitle">Based on your love for desserts!</p>
             <div class="recommended-grid" id="recommended-grid">
                 <p class="loading-message">Loading your personalized recommendations...</p>
@@ -89,7 +93,6 @@
         </section>
     </main>
 
-    <!-- Footer Section - Same as Homepage -->
     <footer class="footer-section">
         <div class="footer-content">
             <div class="footer-logo">

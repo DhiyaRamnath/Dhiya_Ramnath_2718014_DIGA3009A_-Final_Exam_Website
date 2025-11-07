@@ -1,3 +1,27 @@
+/* Font Faces - Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+@font-face {
+    font-family: 'Children One';
+    src: url('../fonts/ChildrenOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Sniglet';
+    src: url('../fonts/Sniglet-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'LazyDog';
+    src: url('../fonts/LazyDog.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'IreneFlorentina';
+    src: url('../fonts/IreneFlorentina.ttf') format('truetype');
+}
+
+/* CSS Variables - Matching Wireframe Colors */
 :root {
     --blue: #8095e4;
     --teal: #1bc0b9;
@@ -9,6 +33,7 @@
     --white: #ffffff;
 }
 
+/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -16,39 +41,49 @@
 }
 
 body {
-    font-family: "Sniglet", sans-serif;
+    font-family: 'Pangolin', cursive !important;
     background-color: var(--cream);
     color: #333;
     line-height: 1.6;
     overflow-x: hidden;
 }
 
+/* Typography */
 h1, .main-title {
-    font-family: "Pangolin", cursive;
+    font-family: 'Pangolin', cursive !important;
     font-size: 3.5rem;
     color: var(--pink);
 }
 
 h2, .section-title {
-    font-family: "Pangolin", cursive;
+    font-family: 'Pangolin', cursive !important;
     font-size: 2.5rem;
     color: var(--pink);
     margin-bottom: 1.5rem;
 }
 
 h3, .subtitle {
-    font-family: "Sniglet", cursive;
+    font-family: 'Pangolin', cursive !important;
     font-size: 1.5rem;
     color: var(--orange);
 }
 
+h4 {
+    font-family: 'Pangolin', cursive !important;
+}
+
+p {
+    font-family: 'Pangolin', cursive !important;
+}
+
 button, .cta-button {
-    font-family: "Annie Use Your Telescope", cursive;
+    font-family: 'Sniglet', cursive !important;
     cursor: pointer;
     border: none;
     outline: none;
 }
 
+/* Navigation - Matching Wireframe */
 #main-nav {
     background-color: var(--teal);
     padding: 1rem 2rem;
@@ -97,7 +132,7 @@ button, .cta-button {
 }
 
 .nav-links a {
-    font-family: 'IreneFlorentina', cursive;
+    font-family: 'IreneFlorentina', cursive !important;
     color: white;
     text-decoration: none;
     font-size: 1.1rem;
@@ -173,6 +208,7 @@ button, .cta-button {
     transition: all 0.3s ease;
     z-index: 999;
     box-shadow: 0 4px 15px rgba(249, 70, 128, 0.4);
+    font-family: 'Pangolin', cursive !important;
 }
 
 .back-to-top.visible {
@@ -195,6 +231,7 @@ button, .cta-button {
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(249, 70, 128, 0.3);
     text-transform: capitalize;
+    font-family: 'Sniglet', cursive !important;
 }
 
 .cta-button:hover, .action-btn:hover {
@@ -207,16 +244,32 @@ button, .cta-button {
     background-color: var(--teal);
 }
 
+/* Loading States */
 .loading-message {
     text-align: center;
     padding: 3rem;
     font-size: 1.3rem;
     color: var(--teal);
+    font-family: 'Pangolin', cursive !important;
 }
 
-@media (max-width: 768px) {
+/* Responsive Design */
+@media (max-width: 968px) {
+    .nav-container {
+        grid-template-columns: auto 1fr auto;
+    }
+
     .mobile-toggle {
         display: flex;
+        order: 2;
+    }
+
+    .nav-left {
+        order: 1;
+    }
+
+    .nav-profile {
+        order: 3;
     }
 
     .nav-links {
@@ -232,6 +285,8 @@ button, .cta-button {
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease;
+        order: 4;
+        grid-column: 1 / -1;
     }
 
     .nav-links.active {
@@ -243,6 +298,10 @@ button, .cta-button {
     .nav-links li {
         text-align: center;
         padding: 0.5rem 0;
+    }
+
+    .nav-logo img {
+        height: 50px;
     }
 
     h1, .main-title {
@@ -271,70 +330,8 @@ button, .cta-button {
         padding: 0.8rem 2rem;
         font-size: 1.1rem;
     }
-}
 
-.browse-recipe-card,
-.recipe-card,
-.card,
-.filter-btn,
-.popular-card {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-}
-
-* {
-    transform: skewY(0deg) !important;
-}
-
-body * {
-    will-change: auto;
-}
-
-
-.nav-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-}
-
-.logo {
-    font-family: 'Children One', cursive;
-    font-size: 1.8rem;
-    color: white;
-    text-transform: uppercase;
-    display: none;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 3rem;
-    align-items: center;
-    flex: 1;
-    justify-content: center;
-}
-
-.nav-profile {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.nav-profile:hover {
-    transform: scale(1.1);
-    border-color: var(--yellow);
-}
-
-.nav-profile img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    .nav-logo img {
+        height: 40px;
+    }
 }

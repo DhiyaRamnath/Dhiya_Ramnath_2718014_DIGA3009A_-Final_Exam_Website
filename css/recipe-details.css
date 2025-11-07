@@ -1,0 +1,347 @@
+.recipe-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 80vh;
+    background-color: var(--cream);
+}
+
+.recipe-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.recipe-title {
+    font-family: "Pangolin", cursive;
+    font-size: 3.5rem;
+    color: var(--pink);
+    margin-bottom: 1rem;
+}
+
+.recipe-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-family: "Sniglet", sans-serif;
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.recipe-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.recipe-image-section {
+    position: relative;
+}
+
+.recipe-image-large {
+    width: 100%;
+    height: auto;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border: 5px solid var(--yellow);
+}
+
+.favorite-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.favorite-button:hover {
+    transform: scale(1.1);
+}
+
+.favorite-button.favorited {
+    color: var(--pink);
+}
+
+.recipe-info-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.section-title {
+    font-family: "Pangolin", cursive;
+    font-size: 2rem;
+    color: var(--teal);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.recipe-summary {
+    font-family: "Sniglet", sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.ingredients-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ingredients-list li {
+    font-family: "Sniglet", sans-serif;
+    font-size: 1rem;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--cream);
+    border-radius: 10px;
+    border-left: 4px solid var(--pink);
+    color: #333;
+}
+
+.ingredients-list li:before {
+    content: "✓ ";
+    color: var(--pink);
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.instructions-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+}
+
+.instructions-list {
+    list-style: none;
+    counter-reset: step-counter;
+    padding: 0;
+}
+
+.instructions-list li {
+    counter-increment: step-counter;
+    font-family: "Sniglet", sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 2rem;
+    padding-left: 3rem;
+    position: relative;
+}
+
+.instructions-list li:before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--orange);
+    color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.nutrition-section {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%);
+    padding: 3rem 2rem;
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 3rem;
+}
+
+.nutrition-section .section-title {
+    color: white;
+    text-align: center;
+}
+
+.nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.nutrition-item {
+    background-color: rgba(255,255,255,0.2);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.nutrition-label {
+    font-family: "Sniglet", cursive;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.nutrition-value {
+    font-family: "Pangolin", cursive;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    background-color: var(--pink);
+    color: white;
+    padding: 1.2rem 3rem;
+    border: none;
+    border-radius: 25px;
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+}
+
+.action-btn:hover {
+    background-color: var(--orange);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 128, 25, 0.4);
+}
+
+.action-btn.secondary {
+    background-color: var(--teal);
+}
+
+.action-btn.secondary:hover {
+    background-color: var(--blue);
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--teal);
+    padding: 3rem;
+}
+
+/* Footer Section */
+.footer-section {
+    background-color: var(--teal);
+    padding: 4rem 2rem;
+    position: relative;
+    color: white;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+}
+
+.footer-logo img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.footer-logo img:hover {
+    transform: scale(1.05);
+}
+
+.footer-logo p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footer-notes h4,
+.footer-references h4 {
+    font-family: "Sniglet", cursive;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.footer-notes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-notes li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.footer-references p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .recipe-main {
+        grid-template-columns: 1fr;
+    }
+
+    .recipe-title {
+        font-size: 2.5rem;
+    }
+
+    .recipe-meta {
+        font-size: 1rem;
+    }
+
+    .nutrition-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-logo img {
+        width: 250px;
+    }
+}
+
+@media (max-width: 640px) {
+    .recipe-title {
+        font-size: 2rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+    }
+
+    .nutrition-grid {
+        grid-template-columns: 1fr;
+    }
+}

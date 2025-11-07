@@ -1,53 +1,132 @@
 let featuredRecipeId = null;
 
+const ingredients = [
+    'apple', 'basil', 'beet', 'bell-pepper', 'broccoli', 'carrot', 
+    'cherry', 'chilli', 'cucumber', 'lemon', 'lettuce', 'onion', 
+    'peach', 'pepper', 'pineapple', 'potato', 'tomato', 'radish', 
+    'strawberry', 'watermelon'
+];
+
+const starColors = ['blue-star', 'green-star', 'orange-star', 'pink-star', 'yellow-star'];
+
 document.addEventListener('DOMContentLoaded', () => {
     initButtons();
     loadFeaturedRecipe();
-    initVegetableTimeline();
     initWelcomeWiggle();
     initScrollTriggers();
     initDraggablePan();
+    hoverIngredients();
 });
 
-// 1. GSAP Timeline Animation - Vegetables floating
-function initVegetableTimeline() {
-    const leftVeg = document.querySelector('.hero-left-veg');
-    const rightVeg = document.querySelector('.hero-right-veg');
+function hoverIngredients() {
+    const container = document.getElementById('ingredients-container');
+    const heroSection = document.querySelector('.hero-section');
     
-    if (leftVeg) {
-        const tl = gsap.timeline({ repeat: -1, yoyo: true });
-        tl.to(leftVeg, {
-            y: -30,
-            rotation: 5,
-            duration: 3,
-            ease: 'sine.inOut'
-        })
-        .to(leftVeg, {
-            y: 30,
-            rotation: -5,
-            duration: 3,
-            ease: 'sine.inOut'
+    ingredients.forEach((ingredient, index) => {
+        // Create ingredient element
+        const ingredientEl = document.createElement('div');
+        ingredientEl.className = 'floating-ingredient';
+        
+        const img = document.createElement('img');
+        img.src = `assets/${ingredient}.png`;
+        img.alt = ingredient;
+        img.onerror = () => {
+            console.log(`Image not found: ${ingredient}.png`);
+            ingredientEl.remove();
+        };
+        
+        ingredientEl.appendChild(img);
+        container.appendChild(ingredientEl);
+        
+        // Function to get random position that doesn't overlap with logo
+        function getRandomPosition() {
+            const heroHeight = heroSection.offsetHeight;
+            const heroWidth = heroSection.offsetWidth;
+            const logoContainer = document.querySelector('.logo-container img');
+            
+            if (!logoContainer) {
+                return {
+                    x: Math.random() * (heroWidth - 100) + 50,
+                    y: Math.random() * (heroHeight - 100) + 50
+                };
+            }
+            
+            const logoRect = logoContainer.getBoundingClientRect();
+            const heroRect = heroSection.getBoundingClientRect();
+            
+            const logoRelativeX = logoRect.left - heroRect.left;
+            const logoRelativeY = logoRect.top - heroRect.top;
+            const logoWidth = logoRect.width;
+            const logoHeight = logoRect.height;
+            
+            let x, y;
+            let isOverlapping = true;
+            let attempts = 0;
+            
+            while (isOverlapping && attempts < 50) {
+                x = Math.random() * (heroWidth - 100) + 50;
+                y = Math.random() * (heroHeight - 100) + 50;
+                
+                // Check if position overlaps with logo (with padding)
+                const padding = 80; // Extra space around logo
+                const isInLogoX = x > (logoRelativeX - padding) && x < (logoRelativeX + logoWidth + padding);
+                const isInLogoY = y > (logoRelativeY - padding) && y < (logoRelativeY + logoHeight + padding);
+                
+                if (!isInLogoX || !isInLogoY) {
+                    isOverlapping = false;
+                }
+                attempts++;
+            }
+            
+            return { x, y };
+        }
+        
+        // Get initial position
+        const startPos = getRandomPosition();
+        
+        // Set initial position with absolute positioning
+        gsap.set(ingredientEl, {
+            left: startPos.x + 'px',
+            top: startPos.y + 'px',
+            x: 0,
+            y: 0,
+            rotation: Math.random() * 360
         });
-    }
-    
-    if (rightVeg) {
-        const tl = gsap.timeline({ repeat: -1, yoyo: true, delay: 1 });
-        tl.to(rightVeg, {
-            y: 30,
-            rotation: -5,
-            duration: 3,
-            ease: 'sine.inOut'
-        })
-        .to(rightVeg, {
-            y: -30,
-            rotation: 5,
-            duration: 3,
-            ease: 'sine.inOut'
+        
+        // Fade in
+        gsap.to(ingredientEl, {
+            opacity: 1,
+            duration: 0.5,
+            delay: index * 0.1
         });
-    }
+        
+        // Create hovering animation
+        function animateHover() {
+            const newPos = getRandomPosition();
+            const duration = 5 + Math.random() * 4; // 5-9 seconds
+            
+            gsap.to(ingredientEl, {
+                left: newPos.x + 'px',
+                top: newPos.y + 'px',
+                rotation: `+=${Math.random() * 180 - 90}`, // Random rotation change
+                duration: duration,
+                ease: 'sine.inOut',
+                onComplete: animateHover // Loop the animation
+            });
+        }
+        
+        // Start hovering after initial delay
+        setTimeout(() => {
+            animateHover();
+        }, index * 100 + 1000);
+        
+        // Add continuous wiggle
+        ingredientEl.style.animation = `wiggle ${3 + Math.random() * 2}s ease-in-out infinite`;
+        ingredientEl.style.animationDelay = `${Math.random() * 2}s`;
+    });
 }
 
-// 2. GSAP Timeline Animation - Welcome letter wiggle (continuous)
+// GSAP Timeline Animation - Welcome letter wiggle (continuous)
 function initWelcomeWiggle() {
     const heading = document.getElementById('welcome-heading');
     if (!heading) return;
@@ -96,7 +175,7 @@ function initWelcomeWiggle() {
     });
 }
 
-// 3. ScrollTrigger for all sections
+// ScrollTrigger for all sections
 function initScrollTriggers() {
     // Welcome Section
     ScrollTrigger.create({
@@ -140,29 +219,36 @@ function initScrollTriggers() {
         }
     });
     
-    // Have Fun Section with Cake
+    // Have Fun Section with Cake - Smooth slide up with scroll
     ScrollTrigger.create({
-        trigger: '.not-sure-section',
-        start: 'bottom 60%',
+        trigger: '.have-fun-section',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 1,
         onEnter: () => {
             const haveFunSection = document.querySelector('.have-fun-section');
-            const cakeImage = document.getElementById('cake-image');
-            
             gsap.to(haveFunSection, {
                 opacity: 1,
-                duration: 1,
+                duration: 0.5,
                 ease: 'power2.out'
             });
+        },
+        onUpdate: (self) => {
+            const cakeImage = document.getElementById('cake-image');
+            const progress = self.progress;
             
+            // Slide up smoothly with scroll (no rotation)
             gsap.to(cakeImage, {
-                opacity: 1,
-                scale: 1,
-                rotation: 360,
-                duration: 1.5,
-                ease: 'elastic.out(1, 0.5)',
-                delay: 0.5,
+                y: (1 - progress) * 200 - 200,
+                opacity: progress,
+                scale: 0.5 + (progress * 0.5),
+                duration: 0.1,
+                ease: 'none',
                 onComplete: () => {
-                    createConfetti();
+                    if (progress > 0.7 && !cakeImage.dataset.starsStarted) {
+                        cakeImage.dataset.starsStarted = 'true';
+                        createStarConfetti();
+                    }
                 }
             });
         }
@@ -183,75 +269,102 @@ function initScrollTriggers() {
     });
 }
 
-// 4. MorphSVG for Confetti Animation
-function createConfetti() {
-    const svg = document.getElementById('confetti-svg');
-    if (!svg) return;
+// Star Confetti - Pop out and disappear
+function createStarConfetti() {
+    const container = document.getElementById('stars-container');
+    if (!container) return;
     
-    const colors = ['#f94680', '#febd17', '#ff8019', '#1bc0b9', '#8095e4'];
-    const numConfetti = 30;
+    const numStars = 40;
     
-    for (let i = 0; i < numConfetti; i++) {
-        const confetti = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        const x = Math.random() * 500;
-        const y = Math.random() * 200 + 100;
-        const color = colors[Math.floor(Math.random() * colors.length)];
+    for (let i = 0; i < numStars; i++) {
+        const starEl = document.createElement('div');
+        starEl.className = 'star-confetti';
         
-        confetti.setAttribute('cx', x);
-        confetti.setAttribute('cy', y);
-        confetti.setAttribute('r', 0);
-        confetti.setAttribute('fill', color);
+        const starColor = starColors[Math.floor(Math.random() * starColors.length)];
+        const img = document.createElement('img');
+        img.src = `assets/${starColor}.png`;
+        img.alt = starColor;
+        img.onerror = () => {
+            console.log(`Star image not found: ${starColor}.png`);
+            starEl.remove();
+        };
         
-        svg.appendChild(confetti);
+        starEl.appendChild(img);
+        container.appendChild(starEl);
         
-        const tl = gsap.timeline({ repeat: -1, yoyo: true });
+        // Start from center of cake
+        const startX = 250;
+        const startY = 250;
         
-        tl.to(confetti, {
-            attr: { r: 8 },
-            duration: 0.5,
-            ease: 'power2.out'
-        })
-        .to(confetti, {
-            attr: { r: 4 },
-            duration: 0.5,
-            ease: 'power2.inOut'
-        })
-        .to(confetti, {
-            attr: { r: 10 },
-            duration: 0.5,
-            ease: 'power2.inOut'
+        gsap.set(starEl, {
+            left: startX + 'px',
+            top: startY + 'px',
+            x: 0,
+            y: 0,
+            rotation: Math.random() * 360,
+            opacity: 0
         });
         
-        gsap.to(confetti, {
-            attr: { 
-                cy: y + (Math.random() * 100 - 50),
-                cx: x + (Math.random() * 100 - 50)
-            },
-            duration: 2 + Math.random() * 2,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut',
-            delay: Math.random() * 2
-        });
+        // Pop out animation
+        function popStar() {
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 150 + Math.random() * 150;
+            const endX = Math.cos(angle) * distance;
+            const endY = Math.sin(angle) * distance;
+            
+            gsap.timeline()
+                .to(starEl, {
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                })
+                .to(starEl, {
+                    x: endX,
+                    y: endY,
+                    rotation: `+=${Math.random() * 720 - 360}`,
+                    duration: 1.5,
+                    ease: 'power2.out'
+                }, '<')
+                .to(starEl, {
+                    opacity: 0,
+                    duration: 0.5,
+                    delay: 0.3
+                })
+                .to(starEl, {
+                    onComplete: () => {
+                        // Reset and loop
+                        gsap.set(starEl, {
+                            x: 0,
+                            y: 0,
+                            opacity: 0,
+                            rotation: Math.random() * 360
+                        });
+                        
+                        // Random delay before next pop
+                        gsap.delayedCall(Math.random() * 2 + 1, popStar);
+                    }
+                });
+        }
+        
+        // Start with staggered delay
+        gsap.delayedCall(i * 0.05, popStar);
     }
 }
 
-// 5. Draggable Animation - Freely Spinning Pan
+// Draggable Animation - Freely Spinning Pan
 function initDraggablePan() {
     const panContainer = document.getElementById('draggable-pan');
     if (!panContainer) return;
     
-    // Set initial rotation
     gsap.set(panContainer, { rotation: -25 });
     
-    // Create draggable with rotation
     Draggable.create(panContainer, {
         type: 'rotation',
         inertia: true,
         bounds: { minRotation: -360, maxRotation: 360 },
         throwProps: true,
         snap: function(endValue) {
-            return Math.round(endValue / 45) * 45; // Snap to 45 degree increments
+            return Math.round(endValue / 45) * 45;
         },
         onDragStart: function() {
             gsap.to(panContainer, {
@@ -267,7 +380,6 @@ function initDraggablePan() {
                 ease: 'elastic.out(1, 0.5)'
             });
             
-            // Add bounce effect
             const currentRotation = this.rotation;
             gsap.to(panContainer, {
                 rotation: currentRotation + 20,

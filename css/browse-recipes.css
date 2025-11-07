@@ -1,0 +1,446 @@
+.browse-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 80vh;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: 30px;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.page-title {
+    font-family: "Pangolin", cursive;
+    font-size: 5rem;
+    color: var(--pink);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.page-subtitle {
+    font-family: "Sniglet", sans-serif;
+    font-size: 1.5rem;
+    color: var(--orange);
+}
+
+.filter-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.filter-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-family: "Sniglet", cursive;
+    color: var(--teal);
+    font-size: 1.1rem;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    font-family: "Sniglet", sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(27, 192, 185, 0.1);
+}
+
+.filter-buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.filter-button,
+.reset-button {
+    padding: 0.8rem 2.5rem;
+    border: none;
+    border-radius: 20px;
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-button {
+    background-color: var(--pink);
+    color: white;
+}
+
+.filter-button:hover {
+    background-color: var(--orange);
+    transform: translateY(-2px);
+}
+
+.reset-button {
+    background-color: var(--teal);
+    color: white;
+}
+
+.reset-button:hover {
+    background-color: var(--blue);
+    transform: translateY(-2px);
+}
+
+.active-filters {
+    background-color: rgba(249, 70, 128, 0.1);
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    border: 2px solid var(--pink);
+}
+
+.active-filters h3 {
+    font-family: "Sniglet", cursive;
+    color: var(--pink);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.filter-tag {
+    background-color: var(--pink);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-family: "Sniglet", sans-serif;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-tag .remove {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.filter-tag .remove:hover {
+    color: var(--yellow);
+}
+
+.recipes-section {
+    margin-bottom: 3rem;
+}
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.recipe-card {
+    background-color: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 3px solid var(--yellow);
+}
+
+.recipe-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.recipe-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.recipe-info {
+    padding: 1.5rem;
+}
+
+.recipe-name {
+    font-family: "Sniglet", cursive;
+    color: var(--orange);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.recipe-time {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.recipe-servings {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.recipe-difficulty {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.difficulty-easy {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.difficulty-medium {
+    background-color: var(--orange);
+    color: white;
+}
+
+.difficulty-hard {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.loading-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.3rem;
+    color: var(--teal);
+}
+
+.pagination-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    padding: 2rem;
+}
+
+.pagination-button {
+    background-color: var(--teal);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: var(--blue);
+    transform: translateY(-2px);
+}
+
+.pagination-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.page-info {
+    font-family: "Sniglet", sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.page-info strong {
+    color: var(--pink);
+    font-size: 1.4rem;
+}
+
+.popular-section {
+    background:var(--blue) 100%;
+    padding: 4rem 2rem;
+    border-radius: 30px;
+    margin-bottom: 4rem;
+}
+
+.popular-section .section-title {
+    font-family: "Pangolin", cursive;
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.section-subtitle {
+    font-family: "Sniglet", sans-serif;
+    font-size: 1.3rem;
+    color: white;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.popular-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+}
+
+.popular-card {
+    background-color: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 3px solid var(--yellow);
+}
+
+.popular-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.popular-card .recipe-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.popular-card .recipe-info {
+    padding: 1rem;
+}
+
+.popular-card .recipe-name {
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.footer-section {
+    background-color: var(--teal);
+    padding: 4rem 2rem;
+    position: relative;
+    color: white;
+    margin-top: 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+}
+
+.footer-logo img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.footer-logo img:hover {
+    transform: scale(1.05);
+}
+
+.footer-logo p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footer-notes h4,
+.footer-references h4 {
+    font-family: "Sniglet", cursive;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.footer-notes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-notes li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.footer-references p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 1200px) {
+    .filter-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .popular-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 968px) {
+    .filter-container {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title {
+        font-size: 3rem;
+    }
+
+    .pagination-section {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .popular-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-logo img {
+        width: 250px;
+    }
+}
+
+@media (max-width: 640px) {
+    .recipes-grid,
+    .popular-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+    }
+}

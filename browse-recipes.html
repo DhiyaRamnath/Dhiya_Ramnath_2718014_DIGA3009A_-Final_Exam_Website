@@ -5,71 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Recipes - Incy Wincy Eats</title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/browse.css">
+    <link rel="stylesheet" href="css/browse-recipes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pangolin&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav id="main-nav"></nav>
-    
     <main class="browse-container">
-        <h1 class="page-title">BROWSE RECIPES</h1>
-        
-        <section class="search-filter-section">
-            <div class="search-container">
-                <h3>ENTER THE NAME OF THE DISH, INGREDIENT, OR TYPE OF MEAL:</h3>
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="No-bake dessert">
-                    <button id="search-btn" class="search-button">Search</button>
-                </div>
-            </div>
+        <section class="hero-section">
+            <h1 class="page-title">BROWSE OUR RECIPES</h1>
+            <p class="page-subtitle">Discover delicious recipes perfect for little chefs!</p>
+        </section>
 
+        <section class="filter-section">
             <div class="filter-container">
-                <h3>FILTERED CATEGORIES</h3>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-category="all">All Recipes</button>
-                    <button class="filter-btn" data-category="snacks">Snacks</button>
-                    <button class="filter-btn" data-category="breakfast">Breakfast</button>
-                    <button class="filter-btn" data-category="dessert">Fun Desserts</button>
+                <div class="filter-group">
+                    <label for="meal-type-filter">Meal Type:</label>
+                    <select id="meal-type-filter">
+                        <option value="">All Meals</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="appetizer">Appetizer</option>
+                        <option value="snack">Snack</option>
+                        <option value="side dish">Side Dish</option>
+                    </select>
                 </div>
 
-                <div class="ingredient-filters">
-                    <label>
-                        <input type="checkbox" id="under-5-ingredients">
-                        Under 5 Ingredients
-                    </label>
-                    <label>
-                        <input type="checkbox" id="under-3-ingredients">
-                        Under 3 Ingredients
-                    </label>
+                <div class="filter-group">
+                    <label for="time-filter">Cooking Time:</label>
+                    <select id="time-filter">
+                        <option value="">Any Time</option>
+                        <option value="30">30 Minutes or Less</option>
+                        <option value="60">1 Hour or Less</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="difficulty-filter">Difficulty:</label>
+                    <select id="difficulty-filter">
+                        <option value="">Any Difficulty</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="search-input">Search:</label>
+                    <input type="text" id="search-input" placeholder="Search for recipes...">
+                </div>
+
+                <div class="filter-buttons">
+                    <button class="filter-button" id="apply-filters">Find Recipes</button>
+                    <button class="reset-button" id="reset-filters">Reset</button>
                 </div>
             </div>
         </section>
 
-        <section class="results-section">
-            <div class="results-header">
-                <h2 id="results-title">RESULTS:</h2>
-                <p id="results-count"></p>
-            </div>
-            
+        <section class="active-filters" id="active-filters" style="display: none;">
+            <h3>Active Filters:</h3>
+            <div class="filter-tags" id="filter-tags"></div>
+        </section>
+
+        <section class="recipes-section">
             <div class="recipes-grid" id="recipes-grid">
+                <p class="loading-message">Loading delicious recipes...</p>
             </div>
+        </section>
 
-            <div class="loading-message" id="loading-message" style="display: none;">
-                Loading delicious recipes...
+        <section class="pagination-section" id="pagination-section" style="display: none;">
+            <button class="pagination-button" id="prev-page" disabled>
+                ← Previous
+            </button>
+            <div class="page-info">
+                <span>Page <strong id="current-page">1</strong> of <strong id="total-pages">1</strong></span>
             </div>
-
-            <div class="pagination">
-                <button id="prev-page" class="page-btn" disabled>Previous</button>
-                <span id="page-info">Page 1</span>
-                <button id="next-page" class="page-btn">Next</button>
-            </div>
+            <button class="pagination-button" id="next-page">
+                Next →
+            </button>
         </section>
 
         <section class="popular-section">
-            <h2 class="section-title">MOST POPULAR RECIPES</h2>
+            <h2 class="section-title">Most Popular Recipes</h2>
+            <p class="section-subtitle">Check out what other little chefs love to make!</p>
             <div class="popular-grid" id="popular-grid">
+                <p class="loading-message">Loading popular recipes...</p>
             </div>
         </section>
     </main>
+
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/iwe-logo.png" alt="Incy Wincy Eats">
+                <p>© 2025 Incy Wincy Eats. All Rights Reserved.<br>All recipes require adult supervision.</p>
+            </div>
+            <div class="footer-notes">
+                <h4>IMPORTANT NOTES:</h4>
+                <ul>
+                    <li>Always check for food allergies before cooking</li>
+                    <li>Adult supervision required for all recipes</li>
+                    <li>Nutritional information is approximate</li>
+                </ul>
+            </div>
+            <div class="footer-references">
+                <h4>REFERENCES</h4>
+                <p>Recipe data and nutrition info and images from Spoonacular API</p>
+            </div>
+        </div>
+    </footer>
 
     <button id="back-to-top" class="back-to-top">↑</button>
 
@@ -77,6 +122,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/api.js"></script>
-    <script src="js/browse.js"></script>
+    <script src="js/browse-recipes.js"></script>
 </body>
 </html>

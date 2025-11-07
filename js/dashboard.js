@@ -15,7 +15,62 @@ document.addEventListener('DOMContentLoaded', () => {
     loadUserProfile();
     initLoginForm();
     initEmailSuggestions();
+    initLogout();
 });
+
+function initLogout() {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to log out?')) {
+                logout();
+            }
+        });
+    }
+}
+
+function logout() {
+    // Clear user profile from localStorage
+    localStorage.removeItem('userProfile');
+    currentUser = null;
+    
+    // Show login section, hide profile sections
+    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('profile-section').style.display = 'none';
+    document.getElementById('recommended-section').style.display = 'none';
+    document.getElementById('favorites-section').style.display = 'none';
+    
+    // Show logout notification
+    showNotification('Logged out successfully!');
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background-color: var(--teal);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 25px;
+        font-family: "Sniglet", sans-serif;
+        font-size: 1.1rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
 
 function initLoginForm() {
     const form = document.getElementById('login-form');
@@ -61,7 +116,6 @@ function initEmailSuggestions() {
             const username = value.substring(0, atIndex);
             const domain = value.substring(atIndex + 1);
             
-            // Filter domains that match the typed text
             const matchingDomains = emailDomains.filter(d => 
                 d.toLowerCase().startsWith(domain.toLowerCase())
             );
@@ -76,7 +130,6 @@ function initEmailSuggestions() {
         }
     });
     
-    // Close suggestions when clicking outside
     document.addEventListener('click', (e) => {
         if (!emailInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
             suggestionsDiv.classList.remove('show');
@@ -92,7 +145,6 @@ function showEmailSuggestions(username, domains, typedDomain) {
         const item = document.createElement('div');
         item.className = 'email-suggestion-item';
         
-        // Highlight the matching part
         const highlightedDomain = domain.replace(
             new RegExp(`^${typedDomain}`, 'i'),
             `<span class="suggestion-highlight">${typedDomain}</span>`
@@ -135,7 +187,6 @@ function validateEmail() {
     const errorMsg = document.getElementById('email-error');
     const email = emailInput.value.trim();
     
-    // Basic email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     if (!emailRegex.test(email)) {
@@ -364,7 +415,6 @@ function toggleFavorite(recipeId, title, image, time) {
     
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
     
-    // Update user profile favorites
     if (currentUser) {
         currentUser.favorites = favorites;
         localStorage.setItem('userProfile', JSON.stringify(currentUser));
@@ -379,7 +429,6 @@ function removeFavorite(recipeId) {
     favorites = favorites.filter(fav => fav.id !== recipeId);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
     
-    // Update user profile favorites
     if (currentUser) {
         currentUser.favorites = favorites;
         localStorage.setItem('userProfile', JSON.stringify(currentUser));
@@ -387,3 +436,30 @@ function removeFavorite(recipeId) {
     
     loadFavoriteRecipes();
 }
+
+// Add animation styles
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);

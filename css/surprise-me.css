@@ -1,0 +1,370 @@
+.surprise-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 80vh;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: 30px;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.page-title {
+    font-family: "Pangolin", cursive;
+    font-size: 5rem;
+    color: var(--pink);;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.page-subtitle {
+    font-family: "Sniglet", sans-serif;
+    font-size: 2.5rem;
+    color: var(--orange);;
+}
+
+.surprise-section {
+    padding: 3rem 0;
+}
+
+.surprise-content {
+    text-align: center;
+}
+
+.surprise-button {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%);
+    color: white;
+    padding: 2rem 4rem;
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 25px rgba(27, 192, 185, 0.4);
+    margin-bottom: 3rem;
+}
+
+.surprise-button:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 35px rgba(27, 192, 185, 0.6);
+}
+
+.surprise-button:active {
+    transform: scale(0.95);
+}
+
+.recipe-display {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    max-width: 900px;
+    height: 600px;
+    perspective: 1000px;
+    margin: 0 auto;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.flip-card-front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.flip-card-front:hover {
+    transform: scale(1.02);
+}
+
+.flip-card-front.color-teal {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%);
+}
+
+.flip-card-front.color-orange {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--yellow) 100%);
+}
+
+.flip-card-front.color-pink {
+    background: linear-gradient(135deg, var(--pink) 0%, var(--light-pink) 100%);
+}
+
+.card-logo {
+    width: 300px;
+    height: auto;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+}
+
+.card-message {
+    font-family: "Pangolin", cursive;
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.card-emoji {
+    font-size: 4rem;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.flip-card-back {
+    background-color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.recipe-image-large {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.recipe-details {
+    padding: 2rem;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.recipe-title-large {
+    font-family: "Pangolin", cursive;
+    font-size: 2rem;
+    color: var(--pink);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.recipe-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    font-family: "Sniglet", sans-serif;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.recipe-summary {
+    font-family: "Sniglet", sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.recipe-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.view-full-btn,
+.try-again-btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-full-btn {
+    background-color: var(--teal);
+    color: white;
+}
+
+.view-full-btn:hover {
+    background-color: var(--blue);
+    transform: translateY(-2px);
+}
+
+.try-again-btn {
+    background-color: var(--orange);
+    color: white;
+}
+
+.try-again-btn:hover {
+    background-color: var(--pink);
+    transform: translateY(-2px);
+}
+
+.footer-section {
+    background-color: var(--teal);
+    padding: 4rem 2rem;
+    position: relative;
+    color: white;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+}
+
+.footer-logo img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.footer-logo img:hover {
+    transform: scale(1.05);
+}
+
+.footer-logo p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footer-notes h4,
+.footer-references h4 {
+    font-family: "Sniglet", cursive;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.footer-notes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-notes li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.footer-references p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 3rem;
+    }
+
+    .surprise-button {
+        padding: 1.5rem 3rem;
+        font-size: 1.5rem;
+    }
+
+    .flip-card {
+        height: 700px;
+    }
+
+    .card-logo {
+        width: 200px;
+    }
+
+    .card-message {
+        font-size: 2rem;
+    }
+
+    .recipe-image-large {
+        height: 200px;
+    }
+
+    .recipe-title-large {
+        font-size: 1.5rem;
+    }
+
+    .recipe-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-logo img {
+        width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flip-card {
+        height: auto;
+        min-height: 500px;
+    }
+
+    .card-logo {
+        width: 150px;
+    }
+
+    .card-message {
+        font-size: 1.5rem;
+    }
+}

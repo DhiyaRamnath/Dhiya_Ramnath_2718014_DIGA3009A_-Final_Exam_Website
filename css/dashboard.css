@@ -10,12 +10,18 @@
 .profile-section {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 2rem;
     padding: 3rem 2rem;
     background-color: transparent;
     border-radius: 30px;
     margin-bottom: 3rem;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 .profile-icon {
@@ -35,11 +41,38 @@
 }
 
 .greeting {
-    font-family: 'Children One', cursive;
+    font-family: "Pangolin", cursive;
     font-size: 3.5rem;
     color: var(--pink);
     text-shadow: none;
     text-transform: uppercase;
+}
+
+/* Logout Button */
+.logout-button {
+    background-color: var(--orange);
+    color: white;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 25px;
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 5px 15px rgba(255, 128, 25, 0.3);
+}
+
+.logout-button:hover {
+    background-color: #e74c3c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+}
+
+.logout-icon {
+    font-size: 1.5rem;
 }
 
 /* Login Section */
@@ -72,7 +105,7 @@
 }
 
 .form-group label {
-    font-family: 'Sniglet', cursive;
+    font-family: "Sniglet", cursive;
     color: var(--teal);
     font-size: 1.1rem;
 }
@@ -82,7 +115,7 @@
     padding: 1rem;
     border: 2px solid #e0e0e0;
     border-radius: 15px;
-    font-family: 'LazyDog', sans-serif;
+    font-family: "Sniglet", sans-serif;
     font-size: 1rem;
     transition: all 0.3s ease;
 }
@@ -137,7 +170,7 @@
     padding: 0.8rem 1rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    font-family: 'LazyDog', sans-serif;
+    font-family: "Sniglet", sans-serif;
     font-size: 1rem;
 }
 
@@ -159,7 +192,7 @@
     font-size: 0.9rem;
     display: none;
     margin-top: 0.25rem;
-    font-family: 'LazyDog', sans-serif;
+    font-family: "Sniglet", sans-serif;
 }
 
 .error-message.show {
@@ -172,7 +205,7 @@
     padding: 1.2rem;
     border: none;
     border-radius: 25px;
-    font-family: 'IreneFlorentina', cursive;
+    font-family: "Annie Use Your Telescope", cursive;
     font-size: 1.3rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -210,7 +243,7 @@
     color: var(--teal);
     margin-bottom: 3rem;
     font-size: 1.2rem;
-    font-family: 'Sniglet', cursive;
+    font-family: "Sniglet", cursive;
 }
 
 .recommended-grid {
@@ -285,7 +318,7 @@
 }
 
 .recipe-name {
-    font-family: 'Sniglet', cursive;
+    font-family: "Sniglet", cursive;
     color: var(--orange);
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
@@ -316,7 +349,7 @@
     padding: 0.8rem;
     border: none;
     border-radius: 20px;
-    font-family: 'IreneFlorentina', cursive;
+    font-family: "Annie Use Your Telescope", cursive;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: capitalize;
@@ -363,9 +396,8 @@
     grid-column: 1 / -1;
 }
 
-/* Footer Section - Pink Background (Same as Homepage) */
 .footer-section {
-    background-color: var(--pink);
+    background-color: var(--teal);
     padding: 4rem 2rem;
     position: relative;
     color: white;
@@ -399,7 +431,7 @@
 
 .footer-notes h4,
 .footer-references h4 {
-    font-family: 'Sniglet', cursive;
+    font-family: "Sniglet", cursive;
     font-size: 1.2rem;
     margin-bottom: 1rem;
     text-transform: uppercase;
@@ -420,7 +452,6 @@
     line-height: 1.6;
 }
 
-/* Responsive */
 @media (max-width: 1200px) {
     .favorites-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -437,6 +468,11 @@
         padding: 2rem 1rem;
     }
 
+    .profile-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
     .profile-icon {
         width: 120px;
         height: 120px;
@@ -445,6 +481,11 @@
     .greeting {
         font-size: 2.5rem;
         text-align: center;
+    }
+
+    .logout-button {
+        width: 100%;
+        justify-content: center;
     }
 
     .login-section {
