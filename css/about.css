@@ -34,6 +34,17 @@
     text-transform: uppercase;
 }
 
+.hover-letter {
+    display: inline-block;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.hover-letter:hover {
+    color: var(--orange);
+    transform: translateY(-15px) rotate(10deg) scale(1.2);
+}
+
 .about-text {
     text-align: left;
     margin-bottom: 4rem;

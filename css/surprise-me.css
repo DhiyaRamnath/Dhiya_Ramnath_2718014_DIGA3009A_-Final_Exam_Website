@@ -209,11 +209,6 @@
     overflow-y: auto;
 }
 
-.flip-card.flipped {
-    position: relative;
-    z-index: 10;
-}
-
 .recipe-image-large {
     width: 100%;
     height: 250px;

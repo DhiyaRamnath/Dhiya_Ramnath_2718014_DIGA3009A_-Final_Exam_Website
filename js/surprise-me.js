@@ -1,4 +1,4 @@
-const starColors = ['blue-star', 'green-star', 'orange-star', 'pink-star', 'yellow-star'];
+ const starColors = ['blue-star', 'green-star', 'orange-star', 'pink-star', 'yellow-star'];
 const colors = ['color-teal', 'color-orange', 'color-pink'];
 let currentRecipes = [];
 
@@ -215,18 +215,7 @@ function createFlipCard(recipe, index) {
 function animateCardsIn() {
     const cards = document.querySelectorAll('.flip-card');
     
-    // Reset any existing transforms first
-    gsap.set(cards, { clearProps: "all" });
-    
     cards.forEach((card, index) => {
-        // Set initial state
-        gsap.set(card, {
-            opacity: 0,
-            y: 50,
-            scale: 0.8
-        });
-        
-        // Animate in
         gsap.to(card, {
             opacity: 1,
             y: 0,
@@ -236,19 +225,15 @@ function animateCardsIn() {
             ease: 'back.out(1.7)'
         });
         
-        // Create scroll trigger only for entrance animation
         ScrollTrigger.create({
             trigger: card,
             start: 'top 85%',
             onEnter: () => {
-                if (!card.classList.contains('flipped')) {
-                    gsap.to(card, {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.6,
-                        ease: 'power2.out'
-                    });
-                }
+                gsap.to(card, {
+                    y: 0,
+                    duration: 0.6,
+                    ease: 'power2.out'
+                });
             },
             once: true
         });

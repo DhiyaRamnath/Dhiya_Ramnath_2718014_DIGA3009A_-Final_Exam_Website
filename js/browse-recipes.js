@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initLetterHoverEffect() {
-    // Apply to "BROWSE RECIPES" heading
     const browseTitle = document.getElementById('browse-title');
     if (browseTitle) {
         const text = browseTitle.textContent;
@@ -30,7 +29,6 @@ function initLetterHoverEffect() {
         }
     }
     
-    // Apply to "POPULAR RECIPES" heading
     const popularTitle = document.getElementById('popular-title');
     if (popularTitle) {
         const text = popularTitle.textContent;
@@ -144,7 +142,6 @@ function displayRecipes(recipes) {
         grid.appendChild(card);
     });
     
-    // Animate cards with scroll trigger
     animateRecipeCards();
 }
 
@@ -215,7 +212,6 @@ function displayPopularRecipes(recipes) {
         grid.appendChild(card);
     });
     
-    // Animate popular cards
     animatePopularCards();
 }
 
@@ -251,7 +247,6 @@ function toggleFavoriteCard(recipeId, title, image, time, button) {
     
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
     
-    // Update user profile if it exists
     const userProfile = localStorage.getItem('userProfile');
     if (userProfile) {
         const profile = JSON.parse(userProfile);
@@ -316,7 +311,6 @@ function animateRecipeCards() {
 function animatePopularCards() {
     const cards = document.querySelectorAll('#popular-grid .recipe-card');
     
-    // Add stagger animation on scroll
     ScrollTrigger.create({
         trigger: '.popular-section',
         start: 'top 80%',
@@ -333,7 +327,6 @@ function animatePopularCards() {
     });
 }
 
-// Add animation styles
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {

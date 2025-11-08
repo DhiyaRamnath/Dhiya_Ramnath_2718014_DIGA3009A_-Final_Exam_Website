@@ -40,6 +40,17 @@
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
+.hover-letter {
+    display: inline-block;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.hover-letter:hover {
+    color: var(--orange);
+    transform: translateY(-15px) rotate(10deg) scale(1.2);
+}
+
 .page-subtitle {
     font-family: "Sniglet", sans-serif;
     font-size: 1.5rem;
