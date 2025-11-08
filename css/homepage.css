@@ -235,7 +235,7 @@
     position: relative;
     width: 600px;
     height: 600px;
-    margin-left: 30%;
+    margin-left: 10%;
     cursor: grab;
     touch-action: none;
 }
