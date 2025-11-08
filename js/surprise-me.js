@@ -31,7 +31,6 @@ function initLetterHoverEffect() {
 function initSpinningStars() {
     const container = document.getElementById('stars-background');
     const numStars = 15;
-    
     for (let i = 0; i < numStars; i++) {
         const starEl = document.createElement('div');
         starEl.className = 'spinning-star';
@@ -47,8 +46,6 @@ function initSpinningStars() {
         
         starEl.appendChild(img);
         container.appendChild(starEl);
-        
-        // Random starting position
         const startX = Math.random() * window.innerWidth;
         const startY = Math.random() * window.innerHeight;
         
@@ -58,10 +55,7 @@ function initSpinningStars() {
             rotation: Math.random() * 360
         });
         
-        // Create spinning and moving animation
         const timeline = gsap.timeline({ repeat: -1 });
-        
-        // Random path for star to move
         const path = [];
         for (let j = 0; j < 4; j++) {
             path.push({
@@ -81,8 +75,6 @@ function initSpinningStars() {
                 delay: index === 0 ? Math.random() * 2 : 0
             });
         });
-        
-        // Return to start
         timeline.to(starEl, {
             x: startX,
             y: startY,
@@ -189,10 +181,10 @@ function createFlipCard(recipe, index) {
                     <h2 class="recipe-title-large">${recipe.title}</h2>
                     <div class="recipe-meta">
                         <span class="meta-item">
-                            <strong>⏱️ Time:</strong> ${recipe.readyInMinutes || 30} mins
+                            <strong>Time:</strong> ${recipe.readyInMinutes || 30} mins
                         </span>
                         <span class="meta-item">
-                            <strong>🍽️ Servings:</strong> ${recipe.servings || 4}
+                            <strong>Servings:</strong> ${recipe.servings || 4}
                         </span>
                     </div>
                     <div class="recipe-summary">${summary}</div>
@@ -206,10 +198,17 @@ function createFlipCard(recipe, index) {
     
     const cardFront = flipCard.querySelector('.flip-card-front');
     cardFront.addEventListener('click', () => {
+       if (flipCard.classList.contains('flipped')) return;
+        // Flip this card
         flipCard.classList.add('flipped');
+        // Blur out the others
+        const allCards = document.querySelectorAll('.flip-card');
+        const grid = document.querySelector('.cards-grid');
+        grid.classList.add('blur-others');
+        // Keep this one sharp
+        flipCard.style.filter = 'none';
+        flipCard.style.transform = 'scale(1)';
     });
-    
-    return flipCard;
 }
 
 function animateCardsIn() {

@@ -6,7 +6,6 @@
     background-color: var(--cream);
 }
 
-/* Profile Section - Matching Wireframe */
 .profile-section {
     display: flex;
     align-items: center;
@@ -48,7 +47,6 @@
     text-transform: uppercase;
 }
 
-/* Logout Button */
 .logout-button {
     background-color: var(--orange);
     color: white;
@@ -75,7 +73,6 @@
     font-size: 1.5rem;
 }
 
-/* Login Section */
 .login-section {
     max-width: 600px;
     margin: 3rem auto;
@@ -141,7 +138,6 @@
     background-color: #ffe6e6;
 }
 
-/* Email Input with Suggestions */
 .email-input-wrapper {
     position: relative;
 }
@@ -225,7 +221,6 @@
     transform: none;
 }
 
-/* Recommended Recipes Section */
 .recommended-section {
     margin-top: 3rem;
 }
@@ -253,7 +248,6 @@
     margin-bottom: 3rem;
 }
 
-/* Favorites Section - Matching Wireframe */
 .favorites-section {
     margin-top: 3rem;
     margin-bottom: 4rem;
@@ -274,7 +268,6 @@
     margin-bottom: 3rem;
 }
 
-/* Recipe Cards - Fixed height with aligned buttons */
 .recipe-card {
     background-color: white;
     border-radius: 25px;

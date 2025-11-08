@@ -7,7 +7,6 @@
     z-index: 2;
 }
 
-/* Spinning Stars Background */
 .stars-background {
     position: fixed;
     top: 0;
@@ -48,7 +47,6 @@
     cursor: default;
 }
 
-/* Letter Hover Effect */
 .hover-letter {
     display: inline-block;
     transition: all 0.3s ease;
@@ -74,7 +72,6 @@
     text-align: center;
 }
 
-/* Cards Grid */
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -92,7 +89,6 @@
     padding: 3rem;
 }
 
-/* Flip Card Styles */
 .flip-card {
     background-color: transparent;
     width: 100%;
@@ -171,6 +167,26 @@
 .flip-card-front.color-pink {
     background: linear-gradient(135deg, var(--pink) 0%, var(--light-pink) 100%);
 }
+
+/* When one card is flipped, blur others */
+.cards-grid.blur-others .flip-card:not(.flipped) {
+  filter: blur(5px) brightness(0.8);
+  transform: scale(0.95);
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+/* Ensure flipped card stays above others but doesn’t move down */
+.flip-card.flipped {
+  z-index: 10;
+}
+
+/* Make the flip animation smoother and fixed in place */
+.flip-card-inner {
+  transform-origin: center;
+  transition: transform 0.8s ease;
+}
+
 
 .card-logo {
     width: 250px;
@@ -280,7 +296,6 @@
     transform: translateY(-2px);
 }
 
-/* Refresh Button */
 .refresh-button {
     font-family: "Sniglet", cursive;
     font-size: 1.5rem;

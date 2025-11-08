@@ -1,11 +1,7 @@
 let featuredRecipeId = null;
 
-const ingredients = [
-    'apple', 'basil', 'beet', 'bell-pepper', 'broccoli', 'carrot', 
-    'cherry', 'chilli', 'cucumber', 'lemon', 'lettuce', 'onion', 
-    'peach', 'pepper', 'pineapple', 'potato', 'tomato', 'radish', 
-    'strawberry', 'watermelon'
-];
+const ingredients = ['apple', 'basil', 'beet', 'bell-pepper', 'broccoli', 'carrot','cherry', 'chilli', 'cucumber', 'lemon', 'lettuce', 'onion', 
+'peach', 'pepper', 'pineapple', 'potato', 'tomato', 'radish','strawberry', 'watermelon'];
 
 const starColors = ['blue-star', 'green-star', 'orange-star', 'pink-star', 'yellow-star'];
 
@@ -22,11 +18,15 @@ function hoverIngredients() {
     const container = document.getElementById('ingredients-container');
     const heroSection = document.querySelector('.hero-section');
     
-    ingredients.forEach((ingredient, index) => {
-        // Create ingredient element
+    const ingredientCopies = [];
+    const numCopies = 3; 
+    for (let i = 0; i < numCopies; i++) {
+        ingredientCopies.push(...ingredients);
+    }
+
+    ingredientCopies.forEach((ingredient, index) => {
         const ingredientEl = document.createElement('div');
         ingredientEl.className = 'floating-ingredient';
-        
         const img = document.createElement('img');
         img.src = `assets/${ingredient}.png`;
         img.alt = ingredient;
@@ -38,7 +38,6 @@ function hoverIngredients() {
         ingredientEl.appendChild(img);
         container.appendChild(ingredientEl);
         
-        // Function to get random position that doesn't overlap with logo
         function getRandomPosition() {
             const heroHeight = heroSection.offsetHeight;
             const heroWidth = heroSection.offsetWidth;
@@ -53,7 +52,6 @@ function hoverIngredients() {
             
             const logoRect = logoContainer.getBoundingClientRect();
             const heroRect = heroSection.getBoundingClientRect();
-            
             const logoRelativeX = logoRect.left - heroRect.left;
             const logoRelativeY = logoRect.top - heroRect.top;
             const logoWidth = logoRect.width;
@@ -66,9 +64,7 @@ function hoverIngredients() {
             while (isOverlapping && attempts < 50) {
                 x = Math.random() * (heroWidth - 100) + 50;
                 y = Math.random() * (heroHeight - 100) + 50;
-                
-                // Check if position overlaps with logo (with padding)
-                const padding = 80; // Extra space around logo
+                const padding = 80;
                 const isInLogoX = x > (logoRelativeX - padding) && x < (logoRelativeX + logoWidth + padding);
                 const isInLogoY = y > (logoRelativeY - padding) && y < (logoRelativeY + logoHeight + padding);
                 
@@ -81,10 +77,8 @@ function hoverIngredients() {
             return { x, y };
         }
         
-        // Get initial position
         const startPos = getRandomPosition();
         
-        // Set initial position with absolute positioning
         gsap.set(ingredientEl, {
             left: startPos.x + 'px',
             top: startPos.y + 'px',
@@ -93,40 +87,35 @@ function hoverIngredients() {
             rotation: Math.random() * 360
         });
         
-        // Fade in
         gsap.to(ingredientEl, {
             opacity: 1,
             duration: 0.5,
             delay: index * 0.1
         });
-        
-        // Create hovering animation
+
         function animateHover() {
             const newPos = getRandomPosition();
-            const duration = 5 + Math.random() * 4; // 5-9 seconds
+            const duration = 5 + Math.random() * 4;
             
             gsap.to(ingredientEl, {
                 left: newPos.x + 'px',
                 top: newPos.y + 'px',
-                rotation: `+=${Math.random() * 180 - 90}`, // Random rotation change
+                rotation: `+=${Math.random() * 180 - 90}`,
                 duration: duration,
                 ease: 'sine.inOut',
-                onComplete: animateHover // Loop the animation
+                onComplete: animateHover
             });
         }
         
-        // Start hovering after initial delay
         setTimeout(() => {
             animateHover();
         }, index * 100 + 1000);
-        
-        // Add continuous wiggle
+    
         ingredientEl.style.animation = `wiggle ${3 + Math.random() * 2}s ease-in-out infinite`;
         ingredientEl.style.animationDelay = `${Math.random() * 2}s`;
     });
 }
 
-// GSAP Timeline Animation - Welcome letter wiggle (continuous)
 function initWelcomeWiggle() {
     const heading = document.getElementById('welcome-heading');
     if (!heading) return;
@@ -145,7 +134,6 @@ function initWelcomeWiggle() {
         }
     }
     
-    // Continuous wiggle timeline
     letters.forEach((letter, index) => {
         gsap.timeline({ repeat: -1, repeatDelay: 0 })
             .to(letter, {
@@ -175,9 +163,7 @@ function initWelcomeWiggle() {
     });
 }
 
-// ScrollTrigger for all sections
 function initScrollTriggers() {
-    // Welcome Section
     ScrollTrigger.create({
         trigger: '.welcome-section',
         start: 'top 80%',
@@ -190,8 +176,7 @@ function initScrollTriggers() {
             });
         }
     });
-    
-    // Tastiest Section
+
     ScrollTrigger.create({
         trigger: '.tastiest-section',
         start: 'top 80%',
@@ -204,8 +189,7 @@ function initScrollTriggers() {
             });
         }
     });
-    
-    // Not Sure Section
+
     ScrollTrigger.create({
         trigger: '.not-sure-section',
         start: 'top 80%',
@@ -219,42 +203,37 @@ function initScrollTriggers() {
         }
     });
     
-    // Have Fun Section with Cake - Faster slide up with scroll
     ScrollTrigger.create({
         trigger: '.have-fun-section',
-        start: 'top 90%',
-        end: 'top 30%',
-        scrub: 0.5,
+        start: 'top 60%',
         onEnter: () => {
             const haveFunSection = document.querySelector('.have-fun-section');
+            const cakeImage = document.getElementById('cake-image');
+            
             gsap.to(haveFunSection, {
                 opacity: 1,
-                duration: 0.3,
+                duration: 1,
                 ease: 'power2.out'
             });
-        },
-        onUpdate: (self) => {
-            const cakeImage = document.getElementById('cake-image');
-            const progress = self.progress;
             
-            // Slide up faster and more smoothly with scroll (no rotation)
             gsap.to(cakeImage, {
-                y: (1 - progress) * 250 - 250,
-                opacity: progress,
-                scale: 0.3 + (progress * 0.7),
-                duration: 0.05,
-                ease: 'none',
-                onComplete: () => {
-                    if (progress > 0.5 && !cakeImage.dataset.starsStarted) {
-                        cakeImage.dataset.starsStarted = 'true';
-                        createStarConfetti();
-                    }
-                }
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 1,
+                ease: 'power2.out'
             });
-        }
+            
+            if (!cakeImage.dataset.starsStarted) {
+                cakeImage.dataset.starsStarted = 'true';
+                setTimeout(() => {
+                    createStarConfetti();
+                }, 500);
+            }
+        },
+        once: true
     });
     
-    // Footer Section
     ScrollTrigger.create({
         trigger: '.have-fun-section',
         start: 'bottom 80%',
@@ -269,7 +248,6 @@ function initScrollTriggers() {
     });
 }
 
-// Star Confetti - Pop out from behind cake and disappear
 function createStarConfetti() {
     const container = document.getElementById('stars-container');
     if (!container) return;
@@ -279,7 +257,6 @@ function createStarConfetti() {
     for (let i = 0; i < numStars; i++) {
         const starEl = document.createElement('div');
         starEl.className = 'star-confetti';
-        
         const starColor = starColors[Math.floor(Math.random() * starColors.length)];
         const img = document.createElement('img');
         img.src = `assets/${starColor}.png`;
@@ -291,8 +268,6 @@ function createStarConfetti() {
         
         starEl.appendChild(img);
         container.appendChild(starEl);
-        
-        // Start from center of cake (behind it)
         const startX = 250;
         const startY = 250;
         
@@ -305,7 +280,6 @@ function createStarConfetti() {
             opacity: 0
         });
         
-        // Pop out animation
         function popStar() {
             const angle = Math.random() * Math.PI * 2;
             const distance = 200 + Math.random() * 200;
@@ -335,7 +309,6 @@ function createStarConfetti() {
                 })
                 .to(starEl, {
                     onComplete: () => {
-                        // Reset and loop
                         gsap.set(starEl, {
                             x: 0,
                             y: 0,
@@ -343,25 +316,19 @@ function createStarConfetti() {
                             scale: 1,
                             rotation: Math.random() * 360
                         });
-                        
-                        // Random delay before next pop
                         gsap.delayedCall(Math.random() * 2.5 + 0.5, popStar);
                     }
                 });
         }
-        
-        // Start with staggered delay
         gsap.delayedCall(i * 0.04, popStar);
     }
 }
 
-// Draggable Animation - Freely Spinning Pan
 function initDraggablePan() {
     const panContainer = document.getElementById('draggable-pan');
     if (!panContainer) return;
     
     gsap.set(panContainer, { rotation: -25 });
-    
     Draggable.create(panContainer, {
         type: 'rotation',
         inertia: true,

@@ -1,84 +1,41 @@
-const API_KEY = '3b77836e92364efdb0e13d5078cc7bdc';
-const BASE_URL = 'https://api.spoonacular.com';
+// Spoonacular API Key
+// Get your free API key at: https://spoonacular.com/food-api/console#Dashboard
+const API_KEY = '8ebf36c4c01c4b419aa8dfa5ca66e88f';
 
-async function fetchRecipes(query = '', category = '', maxIngredients = null, offset = 0) {
+// API Configuration
+const API_BASE_URL = 'https://api.spoonacular.com';
+
+// Helper function to build API URLs
+function buildApiUrl(endpoint, params = {}) {
+    const url = new URL(`${API_BASE_URL}${endpoint}`);
+    url.searchParams.append('apiKey', API_KEY);
+    
+    Object.keys(params).forEach(key => {
+        if (params[key] !== null && params[key] !== undefined) {
+            url.searchParams.append(key, params[key]);
+        }
+    });
+    
+    return url.toString();
+}
+
+// Test API connection
+async function testApiConnection() {
     try {
-        let url = `${BASE_URL}/recipes/complexSearch?apiKey=${API_KEY}&number=15&offset=${offset}&addRecipeInformation=true&fillIngredients=true`;
-
-        url += '&excludeIngredients=alcohol,wine,beer,vodka,rum,whiskey,liqueur';
-        
-        if (query) {
-            url += `&query=${encodeURIComponent(query)}`;
+        const response = await fetch(buildApiUrl('/recipes/random', { number: 1 }));
+        if (response.ok) {
+            console.log('✅ API connection successful!');
+            return true;
+        } else {
+            console.error('❌ API connection failed:', response.status);
+            return false;
         }
-        
-        if (category && category !== 'all') {
-            if (category === 'breakfast') {
-                url += '&type=breakfast';
-            } else if (category === 'snacks') {
-                url += '&type=snack,appetizer';
-            } else if (category === 'dessert') {
-                url += '&type=dessert';
-            }
-        }
-        
-        if (maxIngredients) {
-            url += `&maxReadyTime=60&number=15`;
-        }
-
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        let recipes = data.results || [];
-        
-        if (maxIngredients) {
-            recipes = recipes.filter(recipe => {
-                const ingredientCount = recipe.extendedIngredients ? recipe.extendedIngredients.length : 0;
-                return ingredientCount <= maxIngredients;
-            });
-        }
-        
-        return {
-            recipes: recipes,
-            totalResults: data.totalResults || 0
-        };
     } catch (error) {
-        console.error('Error fetching recipes:', error);
-        return { recipes: [], totalResults: 0 };
+        console.error('❌ API connection error:', error);
+        return false;
     }
 }
 
-async function fetchRecipeDetails(recipeId) {
-    try {
-        const url = `${BASE_URL}/recipes/${recipeId}/information?apiKey=${API_KEY}&includeNutrition=true`;
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching recipe details:', error);
-        return null;
-    }
-}
-
-async function fetchRandomRecipes(count = 3) {
-    try {
-        const url = `${BASE_URL}/recipes/random?apiKey=${API_KEY}&number=${count}&tags=vegetarian,dessert,snack`;
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.recipes || [];
-    } catch (error) {
-        console.error('Error fetching random recipes:', error);
-        return [];
-    }
-}
-
-async function fetchPopularRecipes() {
-    try {
-        const url = `${BASE_URL}/recipes/complexSearch?apiKey=${API_KEY}&number=4&sort=popularity&addRecipeInformation=true`;
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.results || [];
-    } catch (error) {
-        console.error('Error fetching popular recipes:', error);
-        return [];
-    }
-}
+// Log API status on load
+console.log('API Key loaded:', API_KEY ? 'Yes' : 'No');
+console.log('API Base URL:', API_BASE_URL);

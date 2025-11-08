@@ -43,7 +43,6 @@ function createNavigation() {
 
     const mobileToggle = document.getElementById('mobile-toggle');
     const navLinks = document.getElementById('nav-links');
-
     mobileToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         mobileToggle.classList.toggle('active');
@@ -53,7 +52,6 @@ function createNavigation() {
 function initBackToTop() {
     const backToTopBtn = document.getElementById('back-to-top');
     if (!backToTopBtn) return;
-
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > 300) {
             backToTopBtn.classList.add('visible');

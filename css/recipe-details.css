@@ -6,7 +6,6 @@
     min-height: 80vh;
 }
 
-/* Loading State */
 .loading-state {
     text-align: center;
     padding: 5rem 2rem;
@@ -33,7 +32,6 @@
     color: var(--teal);
 }
 
-/* Error State */
 .error-state {
     text-align: center;
     padding: 5rem 2rem;
@@ -53,7 +51,6 @@
     margin-bottom: 2rem;
 }
 
-/* Recipe Header */
 .recipe-header {
     background-color: white;
     border-radius: 30px;
@@ -219,7 +216,6 @@
     transform: translateX(10px);
 }
 
-/* Instructions Section */
 .instructions-section {
     background-color: white;
     border-radius: 30px;
@@ -282,7 +278,6 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* Nutrition Section */
 .nutrition-section {
     background-color: var(--blue);
     border-radius: 30px;
@@ -330,7 +325,6 @@
     font-weight: bold;
 }
 
-/* Footer Section */
 .footer-section {
     background-color: var(--pink);
     padding: 4rem 2rem;
@@ -390,7 +384,6 @@
     font-family: "Pangolin", cursive;
 }
 
-/* Responsive Design */
 @media (max-width: 1200px) {
     .recipe-header-content {
         grid-template-columns: 1fr;

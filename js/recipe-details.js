@@ -2,7 +2,6 @@ let currentRecipe = null;
 let recipeId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Get recipe ID from URL
     const urlParams = new URLSearchParams(window.location.search);
     recipeId = urlParams.get('id');
     
@@ -20,21 +19,15 @@ async function loadRecipeDetails() {
     const errorState = document.getElementById('error-state');
     
     try {
-        // Fetch recipe information
         const response = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${API_KEY}&includeNutrition=true`);
-        
         if (!response.ok) {
             throw new Error('Recipe not found');
         }
         
         const recipe = await response.json();
         currentRecipe = recipe;
-        
-        // Hide loading, show content
         loadingState.style.display = 'none';
         displayRecipe(recipe);
-        
-        // Initialize favorite button
         initFavoriteButton();
         
     } catch (error) {
@@ -44,19 +37,15 @@ async function loadRecipeDetails() {
 }
 
 function displayRecipe(recipe) {
-    // Show all sections
     document.getElementById('recipe-header').style.display = 'block';
     document.getElementById('ingredients-section').style.display = 'block';
     document.getElementById('instructions-section').style.display = 'block';
     document.getElementById('nutrition-section').style.display = 'block';
-    
-    // Recipe Header
     document.getElementById('recipe-image').src = recipe.image || 'https://via.placeholder.com/500x500?text=No+Image';
     document.getElementById('recipe-title').textContent = recipe.title;
     document.getElementById('recipe-time').textContent = `${recipe.readyInMinutes || 30} mins`;
     document.getElementById('recipe-servings').textContent = `${recipe.servings || 4} servings`;
     
-    // Summary
     const summaryDiv = document.getElementById('recipe-summary');
     if (recipe.summary) {
         const tempDiv = document.createElement('div');
@@ -66,7 +55,6 @@ function displayRecipe(recipe) {
         summaryDiv.innerHTML = '<p>A delicious recipe to try!</p>';
     }
     
-    // Ingredients
     const ingredientsList = document.getElementById('ingredients-list');
     ingredientsList.innerHTML = '';
     
@@ -80,7 +68,6 @@ function displayRecipe(recipe) {
         ingredientsList.innerHTML = '<li>No ingredients available</li>';
     }
     
-    // Instructions
     const instructionsList = document.getElementById('instructions-list');
     instructionsList.innerHTML = '';
     
@@ -91,7 +78,6 @@ function displayRecipe(recipe) {
             instructionsList.appendChild(li);
         });
     } else if (recipe.instructions) {
-        // Fallback to plain instructions
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = recipe.instructions;
         const text = tempDiv.textContent || tempDiv.innerText;
@@ -112,7 +98,6 @@ function displayRecipe(recipe) {
         instructionsList.innerHTML = '<li>No instructions available</li>';
     }
     
-    // Nutrition
     const nutritionGrid = document.getElementById('nutrition-grid');
     nutritionGrid.innerHTML = '';
     
@@ -141,8 +126,6 @@ function displayRecipe(recipe) {
 
 function initFavoriteButton() {
     const favoriteBtn = document.getElementById('favorite-btn');
-    
-    // Check if recipe is already favorited
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     const isFavorited = favorites.some(fav => fav.id === parseInt(recipeId));
     
@@ -161,13 +144,11 @@ function toggleFavorite() {
     const existingIndex = favorites.findIndex(fav => fav.id === parseInt(recipeId));
     
     if (existingIndex > -1) {
-        // Remove from favorites
         favorites.splice(existingIndex, 1);
         favoriteBtn.classList.remove('favorited');
         favoriteBtn.querySelector('.favorite-text').textContent = 'Add to Favorites';
         showNotification('Removed from favorites!');
     } else {
-        // Add to favorites
         favorites.push({
             id: parseInt(recipeId),
             title: currentRecipe.title,
@@ -180,8 +161,6 @@ function toggleFavorite() {
     }
     
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
-    
-    // Update user profile if it exists
     const userProfile = localStorage.getItem('userProfile');
     if (userProfile) {
         const profile = JSON.parse(userProfile);
@@ -224,10 +203,7 @@ function showError() {
 }
 
 function initScrollAnimations() {
-    // Register ScrollTrigger plugin
     gsap.registerPlugin(ScrollTrigger);
-    
-    // Animate recipe header on load
     gsap.to('.recipe-header', {
         opacity: 1,
         y: 0,
@@ -235,8 +211,7 @@ function initScrollAnimations() {
         ease: 'power2.out',
         delay: 0.2
     });
-    
-    // Animate ingredients section
+
     ScrollTrigger.create({
         trigger: '.ingredients-section',
         start: 'top 80%',
@@ -247,8 +222,7 @@ function initScrollAnimations() {
                 duration: 1,
                 ease: 'power2.out'
             });
-            
-            // Animate each ingredient with stagger
+    
             gsap.to('.ingredients-list li', {
                 opacity: 1,
                 x: 0,
@@ -259,13 +233,11 @@ function initScrollAnimations() {
         }
     });
     
-    // Set initial state for ingredients
     gsap.set('.ingredients-list li', {
         opacity: 0,
         x: -30
     });
     
-    // Animate instructions section
     ScrollTrigger.create({
         trigger: '.instructions-section',
         start: 'top 80%',
@@ -276,8 +248,6 @@ function initScrollAnimations() {
                 duration: 1,
                 ease: 'power2.out'
             });
-            
-            // Animate each instruction with stagger
             gsap.to('.instructions-list li', {
                 opacity: 1,
                 x: 0,
@@ -287,14 +257,11 @@ function initScrollAnimations() {
             });
         }
     });
-    
-    // Set initial state for instructions
     gsap.set('.instructions-list li', {
         opacity: 0,
         x: 30
     });
     
-    // Animate nutrition section
     ScrollTrigger.create({
         trigger: '.nutrition-section',
         start: 'top 80%',
@@ -306,7 +273,6 @@ function initScrollAnimations() {
                 ease: 'power2.out'
             });
             
-            // Animate each nutrition item with stagger
             gsap.to('.nutrition-item', {
                 opacity: 1,
                 y: 0,
@@ -318,14 +284,12 @@ function initScrollAnimations() {
         }
     });
     
-    // Set initial state for nutrition items
     gsap.set('.nutrition-item', {
         opacity: 0,
         y: 30,
         scale: 0.8
     });
-    
-    // Smooth scroll for the entire page
+
     ScrollTrigger.create({
         trigger: 'body',
         start: 'top top',
@@ -334,7 +298,6 @@ function initScrollAnimations() {
     });
 }
 
-// Add animation styles
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {

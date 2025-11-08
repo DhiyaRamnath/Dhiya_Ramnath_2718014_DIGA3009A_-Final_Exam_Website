@@ -11,7 +11,6 @@
     overflow: hidden;
 }
 
-/* Ingredients Container */
 .ingredients-container {
     position: absolute;
     top: 0;
@@ -37,7 +36,6 @@
     filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
 }
 
-/* Wiggle animation */
 @keyframes wiggle {
     0%, 100% {
         transform: rotate(-5deg) translateX(-10px);
@@ -337,12 +335,10 @@
     height: 100%;
     object-fit: contain;
     opacity: 0;
-    transform: translateY(200px);
     position: relative;
     z-index: 5;
 }
 
-/* Star container for confetti - Behind the cake */
 .stars-container {
     position: absolute;
     top: 0;
@@ -369,7 +365,7 @@
 }
 
 .footer-section {
-    background-color: var(--pink);
+    background-color: var(--teal);
     padding: 4rem 2rem;
     position: relative;
     color: white;

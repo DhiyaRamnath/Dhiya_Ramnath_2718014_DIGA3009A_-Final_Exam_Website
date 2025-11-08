@@ -1,4 +1,3 @@
-/* Font Faces - Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 
 @font-face {
@@ -21,7 +20,6 @@
     src: url('../fonts/IreneFlorentina.ttf') format('truetype');
 }
 
-/* CSS Variables - Matching Wireframe Colors */
 :root {
     --blue: #8095e4;
     --teal: #1bc0b9;
@@ -33,7 +31,6 @@
     --white: #ffffff;
 }
 
-/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -48,7 +45,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Typography */
 h1, .main-title {
     font-family: 'Pangolin', cursive !important;
     font-size: 3.5rem;
@@ -83,7 +79,6 @@ button, .cta-button {
     outline: none;
 }
 
-/* Navigation - Matching Wireframe */
 #main-nav {
     background-color: var(--teal);
     padding: 1rem 2rem;
@@ -190,14 +185,13 @@ button, .cta-button {
     border-radius: 3px;
 }
 
-/* Back to Top Button */
 .back-to-top {
     position: fixed;
     bottom: 30px;
     right: 30px;
     width: 60px;
     height: 60px;
-    background-color: var(--pink);
+    background-color: var(--orange);
     color: white;
     border: none;
     border-radius: 50%;
@@ -221,7 +215,6 @@ button, .cta-button {
     transform: translateY(-5px);
 }
 
-/* Buttons - Matching Wireframe */
 .cta-button, .action-btn {
     background-color: var(--pink);
     color: white;
@@ -244,7 +237,6 @@ button, .cta-button {
     background-color: var(--teal);
 }
 
-/* Loading States */
 .loading-message {
     text-align: center;
     padding: 3rem;
@@ -253,7 +245,6 @@ button, .cta-button {
     font-family: 'Pangolin', cursive !important;
 }
 
-/* Responsive Design */
 @media (max-width: 968px) {
     .nav-container {
         grid-template-columns: auto 1fr auto;

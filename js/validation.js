@@ -40,7 +40,6 @@ class FormValidator {
     validateUsername() {
         const value = this.username.value.trim();
         const errorElement = document.getElementById('username-error');
-        
         if (value.length < 2) {
             this.showError(this.username, errorElement, 'Username must be at least 2 characters');
             return false;
@@ -59,7 +58,6 @@ class FormValidator {
         const value = this.email.value.trim();
         const errorElement = document.getElementById('email-error');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        
         if (!emailRegex.test(value)) {
             this.showError(this.email, errorElement, 'Please enter a valid email address');
             return false;
@@ -72,7 +70,6 @@ class FormValidator {
     validatePassword() {
         const value = this.password.value;
         const errorElement = document.getElementById('password-error');
-        
         if (value.length < 8) {
             this.showError(this.password, errorElement, 'Password must be at least 8 characters');
             return false;
@@ -113,7 +110,6 @@ class FormValidator {
     validateCategory() {
         const value = this.category.value;
         const errorElement = document.getElementById('category-error');
-        
         if (!value) {
             this.showError(this.category, errorElement, 'Please select a favorite category');
             return false;
@@ -143,7 +139,6 @@ class FormValidator {
         const isPasswordValid = this.validatePassword();
         const isConfirmValid = this.validateConfirmPassword();
         const isCategoryValid = this.validateCategory();
-        
         if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmValid && isCategoryValid) {
             const userData = {
                 username: this.username.value.trim(),

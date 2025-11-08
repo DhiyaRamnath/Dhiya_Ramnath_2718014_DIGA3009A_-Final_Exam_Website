@@ -6,10 +6,38 @@
     position: relative;
 }
 
+.ingredients-rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.falling-ingredient {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    opacity: 1;
+    pointer-events: none;
+}
+
+.falling-ingredient img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
 .veg-top-container {
     width: 100%;
     text-align: center;
     padding: 2rem 0 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .veg-top {
@@ -23,6 +51,8 @@
     margin: 0 auto;
     padding: 3rem 3rem;
     text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
 .about-title {
@@ -36,13 +66,19 @@
 
 .hover-letter {
     display: inline-block;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     cursor: default;
+    position: relative;
 }
 
 .hover-letter:hover {
     color: var(--orange);
-    transform: translateY(-15px) rotate(10deg) scale(1.2);
+    transform: translateY(-15px) rotate(15deg) scale(1.3);
+    text-shadow: 3px 3px 8px rgba(255, 128, 25, 0.3);
+}
+
+.hover-letter:active {
+    transform: translateY(-10px) rotate(10deg) scale(1.2);
 }
 
 .about-text {
@@ -95,8 +131,18 @@
 }
 
 .feature-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .feature-card h3 {
@@ -217,6 +263,11 @@
     .about-features {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    .falling-ingredient {
+        width: 35px;
+        height: 35px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -249,6 +300,11 @@
     .footer-logo img {
         width: 250px;
     }
+    
+    .falling-ingredient {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -261,6 +317,12 @@
     }
 
     .feature-icon {
-        font-size: 3rem;
+        width: 80px;
+        height: 80px;
+    }
+    
+    .falling-ingredient {
+        width: 25px;
+        height: 25px;
     }
 }
