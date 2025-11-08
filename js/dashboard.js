@@ -30,17 +30,12 @@ function initLogout() {
 }
 
 function logout() {
-    // Clear user profile from localStorage
     localStorage.removeItem('userProfile');
     currentUser = null;
-    
-    // Show login section, hide profile sections
     document.getElementById('login-section').style.display = 'block';
     document.getElementById('profile-section').style.display = 'none';
     document.getElementById('recommended-section').style.display = 'none';
     document.getElementById('favorites-section').style.display = 'none';
-    
-    // Show logout notification
     showNotification('Logged out successfully!');
 }
 
@@ -81,7 +76,6 @@ function initLoginForm() {
     const passwordConfirmInput = document.getElementById('user-password-confirm');
     const categorySelect = document.getElementById('user-category');
     
-    // Real-time validation
     nameInput.addEventListener('blur', () => validateName());
     emailInput.addEventListener('blur', () => validateEmail());
     passwordInput.addEventListener('blur', () => validatePassword());
@@ -90,8 +84,6 @@ function initLoginForm() {
     
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        // Validate all fields
         const isNameValid = validateName();
         const isEmailValid = validateEmail();
         const isPasswordValid = validatePassword();
@@ -437,7 +429,6 @@ function removeFavorite(recipeId) {
     loadFavoriteRecipes();
 }
 
-// Add animation styles
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
