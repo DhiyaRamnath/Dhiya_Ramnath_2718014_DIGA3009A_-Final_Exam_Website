@@ -8,9 +8,10 @@
     background-color: var(--teal);
     padding: 3rem 2rem 4rem;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
 }
 
+/* Ingredients Container */
 .ingredients-container {
     position: absolute;
     top: 0;
@@ -23,19 +24,20 @@
 
 .floating-ingredient {
     position: absolute;
-    width: 100px;
-    height: 100px;
-    opacity: 10;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
     pointer-events: none;
 }
 
 .floating-ingredient img {
-    width: 75%;
-    height: 75%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
 }
 
+/* Wiggle animation */
 @keyframes wiggle {
     0%, 100% {
         transform: rotate(-5deg) translateX(-10px);
@@ -49,6 +51,8 @@
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
+    position: relative;
+    z-index: 3;
 }
 
 .logo-container img {
@@ -68,24 +72,6 @@
     font-size: 1.8rem;
     color: white;
     line-height: 1.6;
-}
-
-.hero-left-veg {
-    position: absolute;
-    left: -10px;
-    top: 10%;
-    height: auto;
-    width: 500px;
-    z-index: 2;
-}
-
-.hero-right-veg {
-    position: absolute;
-    right: -10px;
-    top: 10%;
-    height: auto;
-    width: 500px;
-    z-index: 2;
 }
 
 .welcome-section {
@@ -320,6 +306,7 @@
     text-align: center;
     position: relative;
     opacity: 0;
+    min-height: 700px;
 }
 
 .have-fun-content {
@@ -333,8 +320,10 @@
     font-size: 5rem;
     color: var(--pink);
     text-transform: uppercase;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     font-family: "Pangolin", cursive;
+    position: relative;
+    z-index: 10;
 }
 
 .cake-container {
@@ -348,11 +337,39 @@
     height: 100%;
     object-fit: contain;
     opacity: 0;
-    transform: scale(0.5);
+    transform: translateY(200px);
+    position: relative;
+    z-index: 5;
+}
+
+/* Star container for confetti - Behind the cake */
+.stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 1;
+}
+
+.star-confetti {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.star-confetti img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .footer-section {
-    background-color: var(--teal);
+    background-color: var(--pink);
     padding: 4rem 2rem;
     position: relative;
     color: white;
@@ -410,27 +427,23 @@
     font-family: "Pangolin", cursive;
 }
 
-/* Popping Stars */
-.popping-star {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    pointer-events: none;
-    z-index: 10;
-}
-
 @media (max-width: 1200px) {
     .welcome-image img {
         width: 600px;
     }
     
-    .hero-left-veg,
-    .hero-right-veg {
-        width: 200px;
-    }
-    
     .tastiest-section {
         margin: 4rem 2rem;
+    }
+    
+    .floating-ingredient {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .star-confetti {
+        width: 18px;
+        height: 18px;
     }
 }
 
@@ -493,8 +506,13 @@
         text-align: center;
     }
     
-    .hero-left-veg,
-    .hero-right-veg {
-        display: none;
+    .floating-ingredient {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .star-confetti {
+        width: 15px;
+        height: 15px;
     }
 }

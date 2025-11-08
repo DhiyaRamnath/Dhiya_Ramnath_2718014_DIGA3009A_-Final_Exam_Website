@@ -1,213 +1,203 @@
 let currentRecipe = null;
+let recipeId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Get recipe ID from URL
     const urlParams = new URLSearchParams(window.location.search);
-    const recipeId = urlParams.get('id');
+    recipeId = urlParams.get('id');
     
-    if (recipeId) {
-        loadRecipeDetails(recipeId);
-    } else {
-        document.querySelector('.recipe-details-container').innerHTML = '<p class="loading-message">No recipe selected. Please go back and choose a recipe.</p>';
+    if (!recipeId) {
+        showError();
+        return;
     }
+    
+    loadRecipeDetails();
+    initScrollAnimations();
 });
 
-async function loadRecipeDetails(recipeId) {
-    const container = document.querySelector('.recipe-details-container');
-    container.innerHTML = '<p class="loading-message">Loading recipe details...</p>';
-
+async function loadRecipeDetails() {
+    const loadingState = document.getElementById('loading-state');
+    const errorState = document.getElementById('error-state');
+    
     try {
+        // Fetch recipe information
         const response = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${API_KEY}&includeNutrition=true`);
         
         if (!response.ok) {
-            throw new Error('Failed to fetch recipe details');
+            throw new Error('Recipe not found');
         }
-
+        
         const recipe = await response.json();
         currentRecipe = recipe;
-        displayRecipeDetails(recipe);
-        updateFavoriteButton();
+        
+        // Hide loading, show content
+        loadingState.style.display = 'none';
+        displayRecipe(recipe);
+        
+        // Initialize favorite button
+        initFavoriteButton();
+        
     } catch (error) {
-        console.error('Error loading recipe details:', error);
-        container.innerHTML = '<p class="loading-message">Oops! Could not load recipe details. Please try again later.</p>';
+        console.error('Error loading recipe:', error);
+        showError();
     }
 }
 
-function displayRecipeDetails(recipe) {
-    const container = document.querySelector('.recipe-details-container');
+function displayRecipe(recipe) {
+    // Show all sections
+    document.getElementById('recipe-header').style.display = 'block';
+    document.getElementById('ingredients-section').style.display = 'block';
+    document.getElementById('instructions-section').style.display = 'block';
+    document.getElementById('nutrition-section').style.display = 'block';
     
-    // Extract summary without HTML tags
-    let summary = 'A delicious recipe for you to try!';
+    // Recipe Header
+    document.getElementById('recipe-image').src = recipe.image || 'https://via.placeholder.com/500x500?text=No+Image';
+    document.getElementById('recipe-title').textContent = recipe.title;
+    document.getElementById('recipe-time').textContent = `${recipe.readyInMinutes || 30} mins`;
+    document.getElementById('recipe-servings').textContent = `${recipe.servings || 4} servings`;
+    
+    // Summary
+    const summaryDiv = document.getElementById('recipe-summary');
     if (recipe.summary) {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = recipe.summary;
-        summary = tempDiv.textContent || tempDiv.innerText;
+        summaryDiv.innerHTML = `<p>${tempDiv.textContent || tempDiv.innerText}</p>`;
+    } else {
+        summaryDiv.innerHTML = '<p>A delicious recipe to try!</p>';
     }
     
-    // Build ingredients list
-    let ingredientsHTML = '<ul class="ingredients-list">';
+    // Ingredients
+    const ingredientsList = document.getElementById('ingredients-list');
+    ingredientsList.innerHTML = '';
+    
     if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
         recipe.extendedIngredients.forEach(ingredient => {
-            ingredientsHTML += `<li>${ingredient.original}</li>`;
+            const li = document.createElement('li');
+            li.textContent = ingredient.original;
+            ingredientsList.appendChild(li);
         });
     } else {
-        ingredientsHTML += '<li>No ingredients available</li>';
+        ingredientsList.innerHTML = '<li>No ingredients available</li>';
     }
-    ingredientsHTML += '</ul>';
     
-    // Build instructions list
-    let instructionsHTML = '<ol class="instructions-list">';
+    // Instructions
+    const instructionsList = document.getElementById('instructions-list');
+    instructionsList.innerHTML = '';
+    
     if (recipe.analyzedInstructions && recipe.analyzedInstructions.length > 0 && recipe.analyzedInstructions[0].steps) {
         recipe.analyzedInstructions[0].steps.forEach(step => {
-            instructionsHTML += `<li>${step.step}</li>`;
+            const li = document.createElement('li');
+            li.textContent = step.step;
+            instructionsList.appendChild(li);
         });
     } else if (recipe.instructions) {
+        // Fallback to plain instructions
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = recipe.instructions;
         const text = tempDiv.textContent || tempDiv.innerText;
-        const steps = text.split(/\d+\.|Step \d+/).filter(step => step.trim());
-        steps.forEach(step => {
-            if (step.trim()) {
-                instructionsHTML += `<li>${step.trim()}</li>`;
-            }
-        });
+        const steps = text.split(/\d+\.\s+/).filter(step => step.trim());
+        
+        if (steps.length > 0) {
+            steps.forEach(step => {
+                if (step.trim()) {
+                    const li = document.createElement('li');
+                    li.textContent = step.trim();
+                    instructionsList.appendChild(li);
+                }
+            });
+        } else {
+            instructionsList.innerHTML = '<li>No instructions available</li>';
+        }
     } else {
-        instructionsHTML += '<li>No instructions available</li>';
+        instructionsList.innerHTML = '<li>No instructions available</li>';
     }
-    instructionsHTML += '</ol>';
     
-    // Build nutrition info
-    let nutritionHTML = '';
+    // Nutrition
+    const nutritionGrid = document.getElementById('nutrition-grid');
+    nutritionGrid.innerHTML = '';
+    
     if (recipe.nutrition && recipe.nutrition.nutrients) {
-        const keyNutrients = ['Calories', 'Protein', 'Fat', 'Carbohydrates', 'Sugar', 'Fiber'];
-        nutritionHTML = '<div class="nutrition-grid">';
+        const importantNutrients = ['Calories', 'Protein', 'Carbohydrates', 'Fat', 'Sugar', 'Sodium', 'Fiber', 'Cholesterol'];
         
         recipe.nutrition.nutrients.forEach(nutrient => {
-            if (keyNutrients.includes(nutrient.name)) {
-                nutritionHTML += `
-                    <div class="nutrition-item">
-                        <div class="nutrition-label">${nutrient.name}</div>
-                        <div class="nutrition-value">${Math.round(nutrient.amount)}${nutrient.unit}</div>
-                    </div>
+            if (importantNutrients.includes(nutrient.name)) {
+                const item = document.createElement('div');
+                item.className = 'nutrition-item';
+                item.innerHTML = `
+                    <div class="nutrition-label">${nutrient.name}</div>
+                    <div class="nutrition-value">${Math.round(nutrient.amount)}${nutrient.unit}</div>
                 `;
+                nutritionGrid.appendChild(item);
             }
         });
         
-        nutritionHTML += '</div>';
+        if (nutritionGrid.children.length === 0) {
+            nutritionGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: white; font-family: Pangolin, cursive;">Nutrition information not available</p>';
+        }
     } else {
-        nutritionHTML = '<p style="text-align: center;">Nutrition information not available</p>';
+        nutritionGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: white; font-family: Pangolin, cursive;">Nutrition information not available</p>';
     }
-    
-    container.innerHTML = `
-        <div class="recipe-header">
-            <h1 class="recipe-title">${recipe.title}</h1>
-            <div class="recipe-meta">
-                <span>⏱️ ${recipe.readyInMinutes || 30} minutes</span>
-                <span>🍽️ ${recipe.servings || 4} servings</span>
-                <span>❤️ ${recipe.aggregateLikes || 0} likes</span>
-            </div>
-        </div>
-
-        <div class="recipe-main">
-            <div class="recipe-image-section">
-                <img src="${recipe.image || 'https://via.placeholder.com/600x400?text=No+Image'}" alt="${recipe.title}" class="recipe-image-large">
-                <button class="favorite-button" id="favorite-btn" title="Add to Favorites">♡</button>
-            </div>
-
-            <div class="recipe-info-section">
-                <h2 class="section-title">About This Recipe</h2>
-                <p class="recipe-summary">${summary}</p>
-                
-                <h2 class="section-title">Ingredients</h2>
-                ${ingredientsHTML}
-            </div>
-        </div>
-
-        <div class="instructions-section">
-            <h2 class="section-title">Instructions</h2>
-            ${instructionsHTML}
-        </div>
-
-        <div class="nutrition-section">
-            <h2 class="section-title">Nutrition Information</h2>
-            ${nutritionHTML}
-        </div>
-
-        <div class="action-buttons">
-            <button class="action-btn" id="add-to-favorites-bottom">Add to Favorites</button>
-            <button class="action-btn secondary" onclick="window.history.back()">Back to Recipes</button>
-        </div>
-    `;
-    
-    // Add event listeners for favorite buttons
-    document.getElementById('favorite-btn').addEventListener('click', toggleFavorite);
-    document.getElementById('add-to-favorites-bottom').addEventListener('click', toggleFavorite);
 }
 
-function updateFavoriteButton() {
-    if (!currentRecipe) return;
-    
+function initFavoriteButton() {
     const favoriteBtn = document.getElementById('favorite-btn');
-    const addToFavoritesBtn = document.getElementById('add-to-favorites-bottom');
-    const isFavorite = isRecipeFavorite(currentRecipe.id);
     
-    if (favoriteBtn) {
-        favoriteBtn.textContent = isFavorite ? '❤️' : '♡';
-        favoriteBtn.classList.toggle('favorited', isFavorite);
-    }
-    
-    if (addToFavoritesBtn) {
-        addToFavoritesBtn.textContent = isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
-    }
-}
-
-function isRecipeFavorite(recipeId) {
+    // Check if recipe is already favorited
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    return favorites.some(fav => fav.id === recipeId);
+    const isFavorited = favorites.some(fav => fav.id === parseInt(recipeId));
+    
+    if (isFavorited) {
+        favoriteBtn.classList.add('favorited');
+        favoriteBtn.querySelector('.favorite-text').textContent = 'Remove from Favorites';
+    }
+    
+    favoriteBtn.addEventListener('click', toggleFavorite);
 }
 
 function toggleFavorite() {
-    if (!currentRecipe) return;
-    
+    const favoriteBtn = document.getElementById('favorite-btn');
     let favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const existingIndex = favorites.findIndex(fav => fav.id === currentRecipe.id);
+    
+    const existingIndex = favorites.findIndex(fav => fav.id === parseInt(recipeId));
     
     if (existingIndex > -1) {
         // Remove from favorites
         favorites.splice(existingIndex, 1);
+        favoriteBtn.classList.remove('favorited');
+        favoriteBtn.querySelector('.favorite-text').textContent = 'Add to Favorites';
         showNotification('Removed from favorites!');
     } else {
         // Add to favorites
         favorites.push({
-            id: currentRecipe.id,
+            id: parseInt(recipeId),
             title: currentRecipe.title,
             image: currentRecipe.image,
             readyInMinutes: currentRecipe.readyInMinutes || 30
         });
+        favoriteBtn.classList.add('favorited');
+        favoriteBtn.querySelector('.favorite-text').textContent = 'Remove from Favorites';
         showNotification('Added to favorites!');
     }
     
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
     
-    // Update user profile if exists
+    // Update user profile if it exists
     const userProfile = localStorage.getItem('userProfile');
     if (userProfile) {
-        const user = JSON.parse(userProfile);
-        user.favorites = favorites;
-        localStorage.setItem('userProfile', JSON.stringify(user));
+        const profile = JSON.parse(userProfile);
+        profile.favorites = favorites;
+        localStorage.setItem('userProfile', JSON.stringify(profile));
     }
-    
-    updateFavoriteButton();
 }
 
 function showNotification(message) {
-    // Create notification element
     const notification = document.createElement('div');
     notification.textContent = message;
     notification.style.cssText = `
         position: fixed;
         top: 100px;
         right: 20px;
-        background-color: var(--pink);
+        background-color: var(--teal);
         color: white;
         padding: 1rem 2rem;
         border-radius: 25px;
@@ -220,13 +210,128 @@ function showNotification(message) {
     
     document.body.appendChild(notification);
     
-    // Remove after 3 seconds
     setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease-out';
         setTimeout(() => {
             document.body.removeChild(notification);
         }, 300);
     }, 3000);
+}
+
+function showError() {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('error-state').style.display = 'block';
+}
+
+function initScrollAnimations() {
+    // Register ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Animate recipe header on load
+    gsap.to('.recipe-header', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out',
+        delay: 0.2
+    });
+    
+    // Animate ingredients section
+    ScrollTrigger.create({
+        trigger: '.ingredients-section',
+        start: 'top 80%',
+        onEnter: () => {
+            gsap.to('.ingredients-section', {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power2.out'
+            });
+            
+            // Animate each ingredient with stagger
+            gsap.to('.ingredients-list li', {
+                opacity: 1,
+                x: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        }
+    });
+    
+    // Set initial state for ingredients
+    gsap.set('.ingredients-list li', {
+        opacity: 0,
+        x: -30
+    });
+    
+    // Animate instructions section
+    ScrollTrigger.create({
+        trigger: '.instructions-section',
+        start: 'top 80%',
+        onEnter: () => {
+            gsap.to('.instructions-section', {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power2.out'
+            });
+            
+            // Animate each instruction with stagger
+            gsap.to('.instructions-list li', {
+                opacity: 1,
+                x: 0,
+                duration: 0.5,
+                stagger: 0.15,
+                ease: 'power2.out'
+            });
+        }
+    });
+    
+    // Set initial state for instructions
+    gsap.set('.instructions-list li', {
+        opacity: 0,
+        x: 30
+    });
+    
+    // Animate nutrition section
+    ScrollTrigger.create({
+        trigger: '.nutrition-section',
+        start: 'top 80%',
+        onEnter: () => {
+            gsap.to('.nutrition-section', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power2.out'
+            });
+            
+            // Animate each nutrition item with stagger
+            gsap.to('.nutrition-item', {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'back.out(1.7)'
+            });
+        }
+    });
+    
+    // Set initial state for nutrition items
+    gsap.set('.nutrition-item', {
+        opacity: 0,
+        y: 30,
+        scale: 0.8
+    });
+    
+    // Smooth scroll for the entire page
+    ScrollTrigger.create({
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1
+    });
 }
 
 // Add animation styles

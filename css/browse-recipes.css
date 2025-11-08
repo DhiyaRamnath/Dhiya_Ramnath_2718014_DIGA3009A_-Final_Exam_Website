@@ -5,6 +5,25 @@
     min-height: 80vh;
 }
 
+.coriander-left,
+.coriander-right {
+    position: fixed;
+    width: 400px;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.coriander-left {
+    left: -30px;
+    top: 20%;
+}
+
+.coriander-right {
+    right: -30px;
+    top: 30%;
+}
+
 .hero-section {
     text-align: center;
     padding: 3rem 2rem;

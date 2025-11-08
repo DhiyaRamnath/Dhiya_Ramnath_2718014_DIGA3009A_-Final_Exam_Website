@@ -219,17 +219,17 @@ function initScrollTriggers() {
         }
     });
     
-    // Have Fun Section with Cake - Smooth slide up with scroll
+    // Have Fun Section with Cake - Faster slide up with scroll
     ScrollTrigger.create({
         trigger: '.have-fun-section',
-        start: 'top 80%',
-        end: 'bottom 20%',
-        scrub: 1,
+        start: 'top 90%',
+        end: 'top 30%',
+        scrub: 0.5,
         onEnter: () => {
             const haveFunSection = document.querySelector('.have-fun-section');
             gsap.to(haveFunSection, {
                 opacity: 1,
-                duration: 0.5,
+                duration: 0.3,
                 ease: 'power2.out'
             });
         },
@@ -237,15 +237,15 @@ function initScrollTriggers() {
             const cakeImage = document.getElementById('cake-image');
             const progress = self.progress;
             
-            // Slide up smoothly with scroll (no rotation)
+            // Slide up faster and more smoothly with scroll (no rotation)
             gsap.to(cakeImage, {
-                y: (1 - progress) * 200 - 200,
+                y: (1 - progress) * 250 - 250,
                 opacity: progress,
-                scale: 0.5 + (progress * 0.5),
-                duration: 0.1,
+                scale: 0.3 + (progress * 0.7),
+                duration: 0.05,
                 ease: 'none',
                 onComplete: () => {
-                    if (progress > 0.7 && !cakeImage.dataset.starsStarted) {
+                    if (progress > 0.5 && !cakeImage.dataset.starsStarted) {
                         cakeImage.dataset.starsStarted = 'true';
                         createStarConfetti();
                     }
@@ -269,12 +269,12 @@ function initScrollTriggers() {
     });
 }
 
-// Star Confetti - Pop out and disappear
+// Star Confetti - Pop out from behind cake and disappear
 function createStarConfetti() {
     const container = document.getElementById('stars-container');
     if (!container) return;
     
-    const numStars = 40;
+    const numStars = 50;
     
     for (let i = 0; i < numStars; i++) {
         const starEl = document.createElement('div');
@@ -292,7 +292,7 @@ function createStarConfetti() {
         starEl.appendChild(img);
         container.appendChild(starEl);
         
-        // Start from center of cake
+        // Start from center of cake (behind it)
         const startX = 250;
         const startY = 250;
         
@@ -308,27 +308,30 @@ function createStarConfetti() {
         // Pop out animation
         function popStar() {
             const angle = Math.random() * Math.PI * 2;
-            const distance = 150 + Math.random() * 150;
+            const distance = 200 + Math.random() * 200;
             const endX = Math.cos(angle) * distance;
             const endY = Math.sin(angle) * distance;
             
             gsap.timeline()
                 .to(starEl, {
                     opacity: 1,
-                    duration: 0.3,
+                    scale: 1.5,
+                    duration: 0.2,
                     ease: 'power2.out'
                 })
                 .to(starEl, {
                     x: endX,
                     y: endY,
-                    rotation: `+=${Math.random() * 720 - 360}`,
-                    duration: 1.5,
+                    rotation: `+=${Math.random() * 1080 - 540}`,
+                    scale: 1,
+                    duration: 2,
                     ease: 'power2.out'
                 }, '<')
                 .to(starEl, {
                     opacity: 0,
-                    duration: 0.5,
-                    delay: 0.3
+                    scale: 0.5,
+                    duration: 0.6,
+                    delay: 0.2
                 })
                 .to(starEl, {
                     onComplete: () => {
@@ -337,17 +340,18 @@ function createStarConfetti() {
                             x: 0,
                             y: 0,
                             opacity: 0,
+                            scale: 1,
                             rotation: Math.random() * 360
                         });
                         
                         // Random delay before next pop
-                        gsap.delayedCall(Math.random() * 2 + 1, popStar);
+                        gsap.delayedCall(Math.random() * 2.5 + 0.5, popStar);
                     }
                 });
         }
         
         // Start with staggered delay
-        gsap.delayedCall(i * 0.05, popStar);
+        gsap.delayedCall(i * 0.04, popStar);
     }
 }
 

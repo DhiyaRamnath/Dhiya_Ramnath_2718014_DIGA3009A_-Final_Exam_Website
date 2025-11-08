@@ -1,127 +1,260 @@
-let currentRecipeId = null;
-let isFlipped = false;
+const starColors = ['blue-star', 'green-star', 'orange-star', 'pink-star', 'yellow-star'];
+const colors = ['color-teal', 'color-orange', 'color-pink'];
+let currentRecipes = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-    initSurpriseButton();
+    initSpinningStars();
+    initLetterHoverEffect();
+    initScrollAnimations();
+    load3RandomRecipes();
+    initRefreshButton();
 });
 
-function initSurpriseButton() {
-    const surpriseButton = document.getElementById('surprise-button');
-    const tryAgainButton = document.getElementById('try-again');
+function initLetterHoverEffect() {
+    const surpriseTitle = document.getElementById('surprise-title');
+    if (surpriseTitle) {
+        const text = surpriseTitle.textContent;
+        surpriseTitle.innerHTML = '';
+        
+        for (let i = 0; i < text.length; i++) {
+            const span = document.createElement('span');
+            span.className = 'hover-letter';
+            span.textContent = text[i];
+            if (text[i] === ' ') {
+                span.style.marginRight = '0.5rem';
+            }
+            surpriseTitle.appendChild(span);
+        }
+    }
+}
 
-    surpriseButton.addEventListener('click', () => {
-        loadRandomRecipe();
-    });
-
-    if (tryAgainButton) {
-        tryAgainButton.addEventListener('click', () => {
-            resetCard();
-            loadRandomRecipe();
+function initSpinningStars() {
+    const container = document.getElementById('stars-background');
+    const numStars = 15;
+    
+    for (let i = 0; i < numStars; i++) {
+        const starEl = document.createElement('div');
+        starEl.className = 'spinning-star';
+        
+        const starColor = starColors[Math.floor(Math.random() * starColors.length)];
+        const img = document.createElement('img');
+        img.src = `assets/${starColor}.png`;
+        img.alt = starColor;
+        img.onerror = () => {
+            console.log(`Star image not found: ${starColor}.png`);
+            starEl.remove();
+        };
+        
+        starEl.appendChild(img);
+        container.appendChild(starEl);
+        
+        // Random starting position
+        const startX = Math.random() * window.innerWidth;
+        const startY = Math.random() * window.innerHeight;
+        
+        gsap.set(starEl, {
+            x: startX,
+            y: startY,
+            rotation: Math.random() * 360
+        });
+        
+        // Create spinning and moving animation
+        const timeline = gsap.timeline({ repeat: -1 });
+        
+        // Random path for star to move
+        const path = [];
+        for (let j = 0; j < 4; j++) {
+            path.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                rotation: Math.random() * 720 - 360
+            });
+        }
+        
+        path.forEach((point, index) => {
+            timeline.to(starEl, {
+                x: point.x,
+                y: point.y,
+                rotation: `+=${point.rotation}`,
+                duration: 8 + Math.random() * 4,
+                ease: 'sine.inOut',
+                delay: index === 0 ? Math.random() * 2 : 0
+            });
+        });
+        
+        // Return to start
+        timeline.to(starEl, {
+            x: startX,
+            y: startY,
+            rotation: '+=360',
+            duration: 8 + Math.random() * 4,
+            ease: 'sine.inOut'
         });
     }
 }
 
-function resetCard() {
-    const flipCard = document.getElementById('flip-card');
-    const recipeDisplay = document.getElementById('recipe-display');
+function initScrollAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
     
-    flipCard.classList.remove('flipped');
-    isFlipped = false;
-    
-    // Small delay before hiding to allow flip animation
-    setTimeout(() => {
-        recipeDisplay.style.display = 'none';
-    }, 400);
+    ScrollTrigger.create({
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1
+    });
 }
 
-async function loadRandomRecipe() {
-    const surpriseButton = document.getElementById('surprise-button');
-    surpriseButton.disabled = true;
-    surpriseButton.textContent = '🎲 Loading...';
-
-    try {
-        const response = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=1`);
-        
-        if (!response.ok) {
-            throw new Error('Failed to fetch recipe');
-        }
-
-        const data = await response.json();
-        
-        if (data.recipes && data.recipes.length > 0) {
-            displayRecipe(data.recipes[0]);
-        } else {
-            alert('No recipe found. Please try again!');
-        }
-    } catch (error) {
-        console.error('Error loading random recipe:', error);
-        alert('Oops! Something went wrong. Please try again!');
-    } finally {
-        surpriseButton.disabled = false;
-        surpriseButton.textContent = '🎲 Get Random Recipe';
+function initRefreshButton() {
+    const refreshBtn = document.getElementById('refresh-button');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+            gsap.to('.flip-card', {
+                opacity: 0,
+                y: -50,
+                scale: 0.8,
+                duration: 0.4,
+                stagger: 0.1,
+                onComplete: () => {
+                    load3RandomRecipes();
+                }
+            });
+        });
     }
 }
 
-function displayRecipe(recipe) {
-    currentRecipeId = recipe.id;
+async function load3RandomRecipes() {
+    const grid = document.getElementById('cards-grid');
+    grid.innerHTML = '<p class="loading-message">Loading mystery recipes...</p>';
     
-    // Update back of card with recipe info
-    document.getElementById('recipe-image').src = recipe.image || 'https://via.placeholder.com/900x400?text=No+Image';
-    document.getElementById('recipe-title').textContent = recipe.title;
-    document.getElementById('recipe-time').textContent = `${recipe.readyInMinutes || 30} minutes`;
-    document.getElementById('recipe-servings').textContent = recipe.servings || 4;
+    try {
+        const response = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=3`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch recipes');
+        }
+
+        const data = await response.json();
+        currentRecipes = data.recipes || [];
+        
+        if (currentRecipes.length === 0) {
+            grid.innerHTML = '<p class="loading-message">No recipes found. Try refreshing!</p>';
+            return;
+        }
+        
+        display3Cards(currentRecipes);
+        
+    } catch (error) {
+        console.error('Error loading random recipes:', error);
+        grid.innerHTML = '<p class="loading-message">Unable to load recipes. Please try again!</p>';
+    }
+}
+
+function display3Cards(recipes) {
+    const grid = document.getElementById('cards-grid');
+    grid.innerHTML = '';
     
-    // Extract and clean summary
+    recipes.forEach((recipe, index) => {
+        const card = createFlipCard(recipe, index);
+        grid.appendChild(card);
+    });
+    
+    animateCardsIn();
+}
+
+function createFlipCard(recipe, index) {
+    const flipCard = document.createElement('div');
+    flipCard.className = 'flip-card';
+    flipCard.dataset.index = index;
+    
+    const randomColor = colors[index % colors.length];
+    
     let summary = 'A delicious recipe waiting for you to try!';
     if (recipe.summary) {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = recipe.summary;
         const text = tempDiv.textContent || tempDiv.innerText;
-        const sentences = text.split('.').slice(0, 3);
+        const sentences = text.split('.').slice(0, 2);
         summary = sentences.join('.') + '.';
     }
-    document.getElementById('recipe-summary').textContent = summary;
     
-    // Set random color for front of card
-    const colors = ['color-teal', 'color-orange', 'color-pink'];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    const cardFront = document.querySelector('.flip-card-front');
+    flipCard.innerHTML = `
+        <div class="flip-card-inner">
+            <div class="flip-card-front ${randomColor}">
+                <img src="assets/iwe-logo.png" alt="Incy Wincy Eats" class="card-logo">
+                <h2 class="card-message">Click to reveal your mystery recipe!</h2>
+            </div>
+            <div class="flip-card-back">
+                <img src="${recipe.image || 'https://via.placeholder.com/400x250?text=Recipe'}" alt="${recipe.title}" class="recipe-image-large">
+                <div class="recipe-details">
+                    <h2 class="recipe-title-large">${recipe.title}</h2>
+                    <div class="recipe-meta">
+                        <span class="meta-item">
+                            <strong>⏱️ Time:</strong> ${recipe.readyInMinutes || 30} mins
+                        </span>
+                        <span class="meta-item">
+                            <strong>🍽️ Servings:</strong> ${recipe.servings || 4}
+                        </span>
+                    </div>
+                    <div class="recipe-summary">${summary}</div>
+                    <div class="recipe-actions">
+                        <button class="view-full-btn" onclick="viewRecipe(${recipe.id})">View Full Recipe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
     
-    // Remove all color classes and add new one
-    cardFront.classList.remove('color-teal', 'color-orange', 'color-pink');
-    cardFront.classList.add(randomColor);
+    const cardFront = flipCard.querySelector('.flip-card-front');
+    cardFront.addEventListener('click', () => {
+        flipCard.classList.add('flipped');
+    });
     
-    // Show the card
-    const recipeDisplay = document.getElementById('recipe-display');
-    const flipCard = document.getElementById('flip-card');
-    
-    recipeDisplay.style.display = 'block';
-    flipCard.classList.remove('flipped');
-    isFlipped = false;
-    
-    // Set up flip on click
-    setupFlipCard();
-    
-    // Set up view full recipe button
-    const viewFullButton = document.getElementById('view-full-recipe');
-    viewFullButton.onclick = () => {
-        window.location.href = `recipe-details.html?id=${currentRecipeId}`;
-    };
+    return flipCard;
 }
 
-function setupFlipCard() {
-    const flipCard = document.getElementById('flip-card');
-    const cardFront = document.querySelector('.flip-card-front');
+function animateCardsIn() {
+    const cards = document.querySelectorAll('.flip-card');
     
-    // Remove old event listener by cloning
-    const newCardFront = cardFront.cloneNode(true);
-    cardFront.parentNode.replaceChild(newCardFront, cardFront);
+    // Reset any existing transforms first
+    gsap.set(cards, { clearProps: "all" });
     
-    // Add new event listener
-    newCardFront.addEventListener('click', () => {
-        if (!isFlipped) {
-            flipCard.classList.add('flipped');
-            isFlipped = true;
-        }
+    cards.forEach((card, index) => {
+        // Set initial state
+        gsap.set(card, {
+            opacity: 0,
+            y: 50,
+            scale: 0.8
+        });
+        
+        // Animate in
+        gsap.to(card, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            delay: index * 0.2,
+            ease: 'back.out(1.7)'
+        });
+        
+        // Create scroll trigger only for entrance animation
+        ScrollTrigger.create({
+            trigger: card,
+            start: 'top 85%',
+            onEnter: () => {
+                if (!card.classList.contains('flipped')) {
+                    gsap.to(card, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.6,
+                        ease: 'power2.out'
+                    });
+                }
+            },
+            once: true
+        });
     });
+}
+
+function viewRecipe(recipeId) {
+    window.location.href = `recipe-details.html?id=${recipeId}`;
 }

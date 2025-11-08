@@ -11,52 +11,29 @@
 <body>
     <nav id="main-nav"></nav>
     
+    <!-- Spinning Stars Background -->
+    <div class="stars-background" id="stars-background"></div>
+    
     <main class="surprise-container">
         <section class="hero-section">
-            <h1 class="page-title">SURPRISE ME!</h1>
-            <p class="page-subtitle">Click to Reveal Your Recipe!</p>
+            <h1 class="page-title" id="surprise-title">SURPRISE ME!</h1>
+            <p class="page-subtitle">Pick a mystery recipe and let the culinary adventure begin!</p>
         </section>
 
         <section class="surprise-section">
             <div class="surprise-content">
-                <button class="surprise-button" id="surprise-button">
-                    Get Random Recipe
-                </button>
-                
-                <div class="recipe-display" id="recipe-display" style="display: none;">
-                    <div class="flip-card" id="flip-card">
-                        <div class="flip-card-inner" id="flip-card-inner">
-                         
-                            <div class="flip-card-front">
-                                <img src="assets/iwe-logo.png" alt="Incy Wincy Eats" class="card-logo">
-                                <h2 class="card-message">Choose a card to uncover a surprise recipe!</h2>
-                            </div>
-
-                            <div class="flip-card-back">
-                                <img id="recipe-image" src="" alt="Recipe" class="recipe-image-large">
-                                <div class="recipe-details">
-                                    <h2 id="recipe-title" class="recipe-title-large"></h2>
-                                    <div class="recipe-meta">
-                                        <span class="meta-item">
-                                            <strong>Time:</strong> <span id="recipe-time"></span>
-                                        </span>
-                                        <span class="meta-item">
-                                            <strong>Servings:</strong> <span id="recipe-servings"></span>
-                                        </span>
-                                    </div>
-                                    <div class="recipe-summary" id="recipe-summary"></div>
-                                    <div class="recipe-actions">
-                                        <button class="view-full-btn" id="view-full-recipe">View Full Recipe</button>
-                                        <button class="try-again-btn" id="try-again">Try Again</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="cards-grid" id="cards-grid">
+                    <p class="loading-message">Loading mystery recipes...</p>
                 </div>
+                
+                <button class="refresh-button" id="refresh-button">
+                    <span class="refresh-icon">🔄</span>
+                    <span>Show Me Different Recipes</span>
+                </button>
             </div>
         </section>
     </main>
+    
     <footer class="footer-section">
         <div class="footer-content">
             <div class="footer-logo">

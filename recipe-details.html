@@ -6,94 +6,105 @@
     <title>Recipe Details - Incy Wincy Eats</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/recipe-details.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pangolin&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav id="main-nav"></nav>
     
-    <main class="recipe-container">
-        <div class="recipe-header">
-            <h1 class="recipe-title" id="recipe-title">CHOCOLATE CHIP PANCAKES</h1>
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <span class="meta-label">Prep Time:</span>
-                    <span class="meta-value" id="prep-time">5 min</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Cook Time:</span>
-                    <span class="meta-value" id="cook-time">5 min</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Servings:</span>
-                    <span class="meta-value" id="servings">8 Pancakes</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Calories:</span>
-                    <span class="meta-value" id="calories">283kcal</span>
-                </div>
-            </div>
+    <main class="recipe-details-container">
+        <!-- Loading State -->
+        <div class="loading-state" id="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Loading delicious recipe...</p>
         </div>
 
-        <div class="recipe-content">
-            <div class="recipe-image-section">
-                <img id="recipe-image" src="" alt="Recipe">
+        <!-- Recipe Header -->
+        <section class="recipe-header" id="recipe-header" style="display: none;">
+            <div class="recipe-header-content">
+                <div class="recipe-image-container">
+                    <img src="" alt="Recipe" class="recipe-main-image" id="recipe-image">
+                    <button class="favorite-btn" id="favorite-btn">
+                        <span class="heart-icon">♥</span>
+                        <span class="favorite-text">Add to Favorites</span>
+                    </button>
+                </div>
+                <div class="recipe-info">
+                    <h1 class="recipe-title" id="recipe-title">Recipe Title</h1>
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">⏱️</span>
+                            <span class="meta-text" id="recipe-time">30 mins</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🍽️</span>
+                            <span class="meta-text" id="recipe-servings">4 servings</span>
+                        </div>
+                    </div>
+                    <div class="recipe-summary" id="recipe-summary">
+                        <p>Loading recipe description...</p>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="ingredients-section">
-                <h2>INGREDIENTS:</h2>
-                <ul class="ingredients-list" id="ingredients-list">
-                </ul>
-            </div>
-        </div>
+        <!-- Ingredients Section -->
+        <section class="ingredients-section" id="ingredients-section" style="display: none;">
+            <h2 class="section-title">INGREDIENTS</h2>
+            <ul class="ingredients-list" id="ingredients-list">
+                <!-- Ingredients will be added here -->
+            </ul>
+        </section>
 
-        <section class="directions-section">
-            <h2>DIRECTIONS:</h2>
-            <ol class="directions-list" id="directions-list">
+        <!-- Instructions Section -->
+        <section class="instructions-section" id="instructions-section" style="display: none;">
+            <h2 class="section-title">INSTRUCTIONS</h2>
+            <ol class="instructions-list" id="instructions-list">
+                <!-- Instructions will be added here -->
             </ol>
         </section>
 
-        <section class="extra-tips-section">
-            <h2>EXTRA TIPS:</h2>
-            <p id="extra-tips"></p>
-        </section>
-
-        <section class="nutrition-section">
-            <h2>NUTRITION:</h2>
+        <!-- Nutrition Section -->
+        <section class="nutrition-section" id="nutrition-section" style="display: none;">
+            <h2 class="section-title">NUTRITION FACTS</h2>
             <div class="nutrition-grid" id="nutrition-grid">
+                <!-- Nutrition info will be added here -->
             </div>
         </section>
 
-        <div class="action-buttons">
-            <button class="favorite-button" id="add-to-favorites">
-                Add to Favourites
-            </button>
-        </div>
-
-        <section class="footer-section">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="assets/iwe-logo.png" alt="Incy Wincy Eats">
-                    <p>© 2025 Incy Wincy Eats. All Rights Reserved. All recipes require adult supervision.</p>
-                </div>
-                <div class="footer-notes">
-                    <h4>IMPORTANT NOTES:</h4>
-                    <ul>
-                        <li>Always check for food allergies before cooking</li>
-                        <li>Adult supervision required for all recipes</li>
-                        <li>Nutritional information is approximate</li>
-                    </ul>
-                </div>
-                <div class="footer-references">
-                    <h4>REFERENCES</h4>
-                    <p>Recipe data and nutrition info and images from Spoonacular API</p>
-                </div>
-            </div>
+        <!-- Error State -->
+        <section class="error-state" id="error-state" style="display: none;">
+            <h2>Oops! Recipe Not Found</h2>
+            <p>We couldn't find this recipe. Let's get you back to browsing!</p>
+            <button class="cta-button" onclick="window.location.href='browse-recipes.html'">Browse Recipes</button>
         </section>
     </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/iwe-logo.png" alt="Incy Wincy Eats">
+                <p>© 2025 Incy Wincy Eats. All Rights Reserved.<br>All recipes require adult supervision.</p>
+            </div>
+            <div class="footer-notes">
+                <h4>IMPORTANT NOTES:</h4>
+                <ul>
+                    <li>Always check for food allergies before cooking</li>
+                    <li>Adult supervision required for all recipes</li>
+                    <li>Nutritional information is approximate</li>
+                </ul>
+            </div>
+            <div class="footer-references">
+                <h4>REFERENCES</h4>
+                <p>Recipe data and nutrition info and images from Spoonacular API</p>
+            </div>
+        </div>
+    </footer>
 
     <button id="back-to-top" class="back-to-top">↑</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/api.js"></script>
     <script src="js/recipe-details.js"></script>
