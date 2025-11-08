@@ -22,43 +22,53 @@
 
         <section class="filter-section">
             <div class="filter-container">
-                <div class="filter-group">
-                    <label for="meal-type-filter">Meal Type:</label>
-                    <select id="meal-type-filter">
-                        <option value="">All Meals</option>
-                        <option value="breakfast">Breakfast</option>
-                        <option value="lunch">Lunch</option>
-                        <option value="dinner">Dinner</option>
-                        <option value="dessert">Dessert</option>
-                        <option value="appetizer">Starters</option>
-                        <option value="snack">Snacks</option>
-                        <option value="beverage">Drinks</option>
-                        <option value="side dish">Side Dish</option>
-                    </select>
+                <div class="search-bar-group">
+                    <label for="search-input">Search for recipes:</label>
+                    <input type="text" id="search-input" placeholder="Type a recipe name...">
                 </div>
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label for="meal-type-filter">Meal Type:</label>
+                        <select id="meal-type-filter">
+                            <option value="">All Meals</option>
+                            <option value="breakfast">Breakfast</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="dinner">Dinner</option>
+                            <option value="dessert">Dessert</option>
+                            <option value="appetizer">Starters</option>
+                            <option value="snack">Snacks</option>
+                            <option value="beverage">Drinks</option>
+                            <option value="side dish">Side Dish</option>
+                        </select>
+                    </div>
 
-                <div class="filter-group">
-                    <label for="time-filter">Cooking Time:</label>
-                    <select id="time-filter">
-                        <option value="">Any Time</option>
-                        <option value="30">30 Minutes or Less</option>
-                        <option value="60">1 Hour or Less</option>
-                    </select>
-                </div>
+                    <div class="filter-group">
+                        <label for="time-filter">Cooking Time:</label>
+                        <select id="time-filter">
+                            <option value="">Any Time</option>
+                            <option value="30">30 Minutes or Less</option>
+                            <option value="60">1 Hour or Less</option>
+                        </select>
+                    </div>
 
-                <div class="filter-group">
-                    <label for="difficulty-filter">Difficulty:</label>
-                    <select id="difficulty-filter">
-                        <option value="">Any Difficulty</option>
-                        <option value="easy">Easy</option>
-                        <option value="medium">Medium</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                </div>
+                    <div class="filter-group">
+                        <label for="difficulty-filter">Difficulty:</label>
+                        <select id="difficulty-filter">
+                            <option value="">Any Difficulty</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
 
-                <div class="filter-group">
-                    <label for="search-input">Search:</label>
-                    <input type="text" id="search-input" placeholder="Search for recipes...">
+                    <div class="filter-group">
+                        <label for="ingredients-filter">Ingredient Count:</label>
+                        <select id="ingredients-filter">
+                            <option value="">Any Amount</option>
+                            <option value="3">3 Ingredients or Less</option>
+                            <option value="5">5 Ingredients or Less</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="filter-buttons">

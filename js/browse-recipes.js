@@ -3,6 +3,7 @@ let activeFilters = {
     mealType: '',
     time: '',
     difficulty: '',
+    ingredients: '',
     search: ''
 };
 
@@ -80,20 +81,30 @@ async function loadRecipes() {
 
     try {
         const offset = (currentPage - 1) * recipesPerPage;
-        let url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${recipesPerPage}&offset=${offset}&addRecipeInformation=true`;
+        const params = {
+            number: recipesPerPage,
+            offset: offset,
+            addRecipeInformation: true,
+            fillIngredients: true
+        };
         
         if (activeFilters.mealType) {
-            url += `&type=${activeFilters.mealType}`;
+            params.type = activeFilters.mealType;
         }
         
         if (activeFilters.time) {
-            url += `&maxReadyTime=${activeFilters.time}`;
+            params.maxReadyTime = activeFilters.time;
+        }
+        
+        if (activeFilters.ingredients) {
+            params.maxIngredients = activeFilters.ingredients;
         }
         
         if (activeFilters.search) {
-            url += `&query=${activeFilters.search}`;
+            params.query = activeFilters.search;
         }
 
+        const url = buildApiUrl('/recipes/complexSearch', params);
         const response = await fetch(url);
         
         if (!response.ok) {
@@ -104,7 +115,7 @@ async function loadRecipes() {
         let recipes = data.results || [];
         totalResults = data.totalResults || 0;
 
-        // Filter by difficulty (client-side since API doesn't support this directly)
+        console.log('Recipes before filtering:', recipes.length);
         if (activeFilters.difficulty) {
             recipes = filterByDifficulty(recipes, activeFilters.difficulty);
         }
@@ -120,8 +131,6 @@ async function loadRecipes() {
         displayRecipes(currentRecipes);
         updatePagination();
         updateActiveFilters();
-        
-        // Scroll to top of recipes section
         document.querySelector('.recipes-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (error) {
         console.error('Error loading recipes:', error);
@@ -164,7 +173,14 @@ async function loadPopularRecipes() {
     grid.innerHTML = '<p class="loading-message">Loading popular recipes...</p>';
 
     try {
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=5&addRecipeInformation=true&sort=popularity`);
+        const url = buildApiUrl('/recipes/complexSearch', {
+            number: 5,
+            addRecipeInformation: true,
+            sort: 'popularity',
+            excludeIngredients: 'alcohol,wine,beer,liquor'
+        });
+        
+        const response = await fetch(url);
         
         if (!response.ok) {
             throw new Error('Failed to fetch popular recipes');
@@ -199,8 +215,8 @@ function displayRecipes(recipes) {
             <img src="${recipe.image || 'https://via.placeholder.com/300x200?text=No+Image'}" alt="${recipe.title}" class="recipe-image">
             <div class="recipe-info">
                 <h3 class="recipe-name">${recipe.title}</h3>
-                <p class="recipe-time">⏱️ ${recipe.readyInMinutes || 30} minutes</p>
-                <p class="recipe-servings">🍽️ ${recipe.servings || 4} servings</p>
+                <p class="recipe-time">${recipe.readyInMinutes || 30} minutes</p>
+                <p class="recipe-servings">${recipe.servings || 4} servings</p>
                 <span class="recipe-difficulty ${difficultyClass}">${difficulty.toUpperCase()}</span>
             </div>
         `;
@@ -212,7 +228,6 @@ function displayRecipes(recipes) {
 function displayPopularRecipes(recipes) {
     const grid = document.getElementById('popular-grid');
     grid.innerHTML = '';
-
     recipes.forEach(recipe => {
         const card = document.createElement('div');
         card.className = 'popular-card';
@@ -224,7 +239,6 @@ function displayPopularRecipes(recipes) {
                 <h3 class="recipe-name">${recipe.title}</h3>
             </div>
         `;
-
         grid.appendChild(card);
     });
 }
@@ -235,12 +249,9 @@ function updatePagination() {
     const totalPagesSpan = document.getElementById('total-pages');
     const prevButton = document.getElementById('prev-page');
     const nextButton = document.getElementById('next-page');
-    
     const totalPages = Math.ceil(totalResults / recipesPerPage);
-    
     currentPageSpan.textContent = currentPage;
     totalPagesSpan.textContent = totalPages;
-    
     prevButton.disabled = currentPage === 1;
     nextButton.disabled = currentPage >= totalPages;
     
@@ -273,11 +284,11 @@ function updateActiveFilters() {
     filterTags.innerHTML = '';
     
     let hasFilters = false;
-    
     const filterLabels = {
         mealType: 'Meal Type',
         time: 'Time',
         difficulty: 'Difficulty',
+        ingredients: 'Ingredients',
         search: 'Search'
     };
     
@@ -285,6 +296,10 @@ function updateActiveFilters() {
         time: {
             '30': '30 min or less',
             '60': '1 hour or less'
+        },
+        ingredients: {
+            '3': '3 ingredients or less',
+            '5': '5 ingredients or less'
         }
     };
     
@@ -293,9 +308,7 @@ function updateActiveFilters() {
             hasFilters = true;
             const tag = document.createElement('div');
             tag.className = 'filter-tag';
-            
             const displayValue = filterValues[key]?.[value] || value;
-            
             tag.innerHTML = `
                 <span>${filterLabels[key]}: ${displayValue}</span>
                 <span class="remove" data-filter="${key}">✕</span>
@@ -306,8 +319,6 @@ function updateActiveFilters() {
     }
     
     activeFiltersSection.style.display = hasFilters ? 'block' : 'none';
-    
-    // Add click listeners to remove buttons
     document.querySelectorAll('.filter-tag .remove').forEach(button => {
         button.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -319,12 +330,11 @@ function updateActiveFilters() {
 
 function removeFilter(filterKey) {
     activeFilters[filterKey] = '';
-    
-    // Update UI
     const elementMap = {
         mealType: 'meal-type-filter',
         time: 'time-filter',
         difficulty: 'difficulty-filter',
+        ingredients: 'ingredients-filter',
         search: 'search-input'
     };
     
@@ -343,12 +353,14 @@ function initFilters() {
     const mealTypeFilter = document.getElementById('meal-type-filter');
     const timeFilter = document.getElementById('time-filter');
     const difficultyFilter = document.getElementById('difficulty-filter');
+    const ingredientsFilter = document.getElementById('ingredients-filter');
     const searchInput = document.getElementById('search-input');
 
     applyButton.addEventListener('click', () => {
         activeFilters.mealType = mealTypeFilter.value;
         activeFilters.time = timeFilter.value;
         activeFilters.difficulty = difficultyFilter.value;
+        activeFilters.ingredients = ingredientsFilter.value;
         activeFilters.search = searchInput.value.trim();
         currentPage = 1;
         loadRecipes();
@@ -358,12 +370,14 @@ function initFilters() {
         mealTypeFilter.value = '';
         timeFilter.value = '';
         difficultyFilter.value = '';
+        ingredientsFilter.value = '';
         searchInput.value = '';
         
         activeFilters = {
             mealType: '',
             time: '',
             difficulty: '',
+            ingredients: '',
             search: ''
         };
         

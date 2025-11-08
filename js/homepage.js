@@ -408,7 +408,6 @@ async function loadFeaturedRecipe() {
             const titleElement = document.getElementById('featured-title');
             const imageElement = document.getElementById('featured-image');
             const descElement = document.getElementById('featured-description');
-            
             if (titleElement) {
                 titleElement.textContent = recipe.title;
             }

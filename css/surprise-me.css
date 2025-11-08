@@ -78,6 +78,7 @@
     gap: 3rem;
     max-width: 1200px;
     margin: 0 auto 3rem;
+    position: relative;
 }
 
 .loading-message {
@@ -94,8 +95,8 @@
     width: 100%;
     height: 600px;
     perspective: 1000px;
-    opacity: 0;
-    transform: translateY(50px) scale(0.9);
+    position: relative;
+    transform: translateZ(0);
 }
 
 .flip-card-inner {
@@ -103,17 +104,24 @@
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.8s;
+    transition: transform 0.8s ease;
     transform-style: preserve-3d;
+    transform-origin: center center;
 }
 
 .flip-card.flipped .flip-card-inner {
     transform: rotateY(180deg);
 }
 
+.flip-card.flipped {
+    z-index: 1000;
+}
+
 .flip-card-front,
 .flip-card-back {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     -webkit-backface-visibility: hidden;
@@ -121,6 +129,7 @@
     border-radius: 30px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     overflow: hidden;
+    transform: translateZ(0);
 }
 
 .flip-card-front {
@@ -168,25 +177,11 @@
     background: linear-gradient(135deg, var(--pink) 0%, var(--light-pink) 100%);
 }
 
-/* When one card is flipped, blur others */
-.cards-grid.blur-others .flip-card:not(.flipped) {
-  filter: blur(5px) brightness(0.8);
-  transform: scale(0.95);
-  pointer-events: none;
-  transition: all 0.4s ease;
+.cards-grid.has-flipped-card .flip-card:not(.flipped) {
+    filter: blur(5px) brightness(0.7);
+    pointer-events: none;
+    transition: filter 0.5s ease;
 }
-
-/* Ensure flipped card stays above others but doesn’t move down */
-.flip-card.flipped {
-  z-index: 10;
-}
-
-/* Make the flip animation smoother and fixed in place */
-.flip-card-inner {
-  transform-origin: center;
-  transition: transform 0.8s ease;
-}
-
 
 .card-logo {
     width: 250px;
@@ -333,7 +328,7 @@
     position: relative;
     color: white;
     margin-top: 4rem;
-    z-index: 2;
+    z-index: 1;
 }
 
 .footer-content {

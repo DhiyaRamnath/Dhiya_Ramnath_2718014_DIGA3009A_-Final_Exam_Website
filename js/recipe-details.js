@@ -43,60 +43,11 @@ function displayRecipe(recipe) {
     document.getElementById('nutrition-section').style.display = 'block';
     document.getElementById('recipe-image').src = recipe.image || 'https://via.placeholder.com/500x500?text=No+Image';
     document.getElementById('recipe-title').textContent = recipe.title;
-    document.getElementById('recipe-time').textContent = `${recipe.readyInMinutes || 30} mins`;
+    document.getElementById('recipe-prep-time').textContent = `${recipe.preparationMinutes || 15} mins`;
+    document.getElementById('recipe-cook-time').textContent = `${recipe.cookingMinutes || recipe.readyInMinutes || 30} mins`;
     document.getElementById('recipe-servings').textContent = `${recipe.servings || 4} servings`;
-    
-    const summaryDiv = document.getElementById('recipe-summary');
-    if (recipe.summary) {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = recipe.summary;
-        summaryDiv.innerHTML = `<p>${tempDiv.textContent || tempDiv.innerText}</p>`;
-    } else {
-        summaryDiv.innerHTML = '<p>A delicious recipe to try!</p>';
-    }
-    
-    const ingredientsList = document.getElementById('ingredients-list');
-    ingredientsList.innerHTML = '';
-    
-    if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
-        recipe.extendedIngredients.forEach(ingredient => {
-            const li = document.createElement('li');
-            li.textContent = ingredient.original;
-            ingredientsList.appendChild(li);
-        });
-    } else {
-        ingredientsList.innerHTML = '<li>No ingredients available</li>';
-    }
-    
-    const instructionsList = document.getElementById('instructions-list');
-    instructionsList.innerHTML = '';
-    
-    if (recipe.analyzedInstructions && recipe.analyzedInstructions.length > 0 && recipe.analyzedInstructions[0].steps) {
-        recipe.analyzedInstructions[0].steps.forEach(step => {
-            const li = document.createElement('li');
-            li.textContent = step.step;
-            instructionsList.appendChild(li);
-        });
-    } else if (recipe.instructions) {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = recipe.instructions;
-        const text = tempDiv.textContent || tempDiv.innerText;
-        const steps = text.split(/\d+\.\s+/).filter(step => step.trim());
-        
-        if (steps.length > 0) {
-            steps.forEach(step => {
-                if (step.trim()) {
-                    const li = document.createElement('li');
-                    li.textContent = step.trim();
-                    instructionsList.appendChild(li);
-                }
-            });
-        } else {
-            instructionsList.innerHTML = '<li>No instructions available</li>';
-        }
-    } else {
-        instructionsList.innerHTML = '<li>No instructions available</li>';
-    }
+
+ 
     
     const nutritionGrid = document.getElementById('nutrition-grid');
     nutritionGrid.innerHTML = '';
